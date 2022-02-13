@@ -1,1 +1,1 @@
-This repository contains various tools i have developed to use for personal finance
+This repository contains tools I have developed to use for personal finance
