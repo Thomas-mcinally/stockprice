@@ -10,7 +10,6 @@ This should bring up a figure containing:
 2. Line plot for last 90 day price movement
 3. Candlestick plot for last 24hr price movement
 
-
 How to setup (for git bash):
 1. Download this module and place it in a directory accessible by your terminal
 2. In the home directory for git bash, create the alias by adding the following line to your .bashrc:
@@ -18,7 +17,7 @@ How to setup (for git bash):
    This alias will allow you to call this stock_overview.py and pass an argument to it with a single terminal command
 
 
-TO DO:
+TODO:
 1. Improve accuracy of 7-day and 30-day % change by using hourly instead of daily data for closing price 
         A bit difficult because need to:
          a) round off current datetime to closest half hour, use   rounded = now - (now - datetime.min) % timedelta(minutes=30)
@@ -30,21 +29,22 @@ TO DO:
 
 
 #Import required packages
-import pandas as pd
 import yfinance as yf
-import mplfinance as mpf
-import argparse
+from mplfinance import figure, plot, show
+from argparse import ArgumentParser
 from datetime import datetime, timedelta
 
 
 
-def overview(ticker:str):
-    '''Function that returns a matplotlib finance figure containing:
-        1. Figure title containing Current market price, daily % change, 7-day % change, 30-day % change
-        2. Line plot of closing price for last 90 days
-        3. Candlestick plot for the last 24 hrs 
-    
-        Input is the stock ticker, e.g. AMZN to view Amazon stock details
+def overview(ticker:str) -> figure:
+    '''
+    Downloads and calculates key metrics about ticker, and combined them into a nice figure
+
+            Parameters:
+                ticker(str): The yahoo finance ticker for the asset (e.g. TSLA or BTC-USD)
+            
+            Returns:
+                fig : Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
     '''
 
     data_90days = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
@@ -82,22 +82,22 @@ def overview(ticker:str):
 
 
 
-    fig = mpf.figure(figsize=(13,6), style='blueskies')
+    fig = figure(figsize=(13,6), style='blueskies')
 
     ax1=fig.add_subplot(2,2,1)
     ax1_vol=fig.add_subplot(2,2,3)
     ax2=fig.add_subplot(2,2,2)
     ax2_vol=fig.add_subplot(2,2,4)
 
-    mpf.plot(data_90days, ax=ax1, volume=ax1_vol, type='line', datetime_format='%d-%m',xrotation=20, axtitle=ticker + ' last 90 days')
-    mpf.plot(data_1day, ax=ax2, volume=ax2_vol, type='candle',xrotation=20, axtitle=ticker + ' last trading day ('+last_trading_day+')')
+    plot(data_90days, ax=ax1, volume=ax1_vol, type='line', datetime_format='%d-%m',xrotation=20, axtitle=ticker + ' last 90 days')
+    plot(data_1day, ax=ax2, volume=ax2_vol, type='candle',xrotation=20, axtitle=ticker + ' last trading day ('+last_trading_day+')')
     fig.suptitle('Current market price: ' + '%.2f' % current_price +' , Daily change: ' + '%.2f' % daily_return +'%'+' , 7-day change: ' + '%.2f' % day_7_return +'%'+' , 30-day change: ' + '%.2f' % day_30_return +'%')
-    mpf.show()
-
+    
+    return fig
 
 
 #code to enable passing argument at the same time .py file is called in command line
-parser = argparse.ArgumentParser()
+parser = ArgumentParser()
 parser.add_argument("-ticker")
 args = parser.parse_args()
 ticker = args.ticker
@@ -106,7 +106,8 @@ ticker = args.ticker
 
 #Run
 ticker=ticker.upper() #make ticker all upper case 
-overview(ticker)
 
+fig = overview(ticker)
+show() #display fig
 
 
