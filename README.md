@@ -9,7 +9,7 @@
 
 ![](images/input_stock_overview.GIF)
 
-**Output:** Pop-out matplotlib window with historic price movement for that ticker
+**Output:** Pop-out matplotlib window with historic price movement and trading volumes for that ticker
 
 ![](images/output_stock_overview.GIF)
 
