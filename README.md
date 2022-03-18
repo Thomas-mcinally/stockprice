@@ -1,3 +1,5 @@
+A set of bash-terminal tools for personal finance
+
 - This repository contains tools I have developed to use for personal finance.
 - The tools utilize the Yahoo Finance API
 - Work for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD) 
