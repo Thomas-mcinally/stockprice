@@ -1,58 +1,23 @@
-'''
-Thomas McInally 11/02/2022
-
-This module will allow you easily get market data for most stocks/cryptocurrencies with a single command in terminal
-
-How to use:
-If we want an overview for tesla stock, simply type 'info TSLA' in terminal
-This should bring up a figure containing:
-1. Current market price and daily % change
-2. Line plot for last 90 day price movement
-3. Candlestick plot for last 24hr price movement
-
-How to setup (for git bash):
-1. Download this module and place it in a directory accessible by your terminal
-2. In the home directory for git bash, create the alias by adding the following line to your .bashrc:
-        alias info='cd /c/Users/Bruker/desktop/projects/terminal_finance && python stock_overview.py -ticker'
-   This alias will allow you to call this stock_overview.py and pass an argument to it with a single terminal command
-
-
-TODO:
-1. Improve accuracy of 7-day and 30-day % change by using hourly instead of daily data for closing price 
-        A bit difficult because need to:
-         a) round off current datetime to closest half hour, use   rounded = now - (now - datetime.min) % timedelta(minutes=30)
-         b) If stock market closed, round of to previous 15:30
-         c) account for my time zone being different than stock's time zone
-2. Make current price more accurate (currently 30 min lag)
-    Can use .info method, but need to make sure it doesnt slow down program significantly
-'''
-
-
-#Import required packages
 import yfinance as yf
 from mplfinance import figure, plot, show
 from argparse import ArgumentParser
 from datetime import datetime, timedelta
+from pandas import DataFrame
 
-
-
-def overview(ticker:str) -> figure:
+def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
     '''
-    Downloads and calculates key metrics about ticker, and combined them into a nice figure
-
-            Parameters:
-                ticker(str): The yahoo finance ticker for the asset (e.g. TSLA or BTC-USD)
-            
-            Returns:
-                fig : Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
+    Parameters:
+        data_1day (DataFrame) - Price for ticker, every 30m for last 24h
+        data_90day (DataFrame) - Price for ticker evert 1h for last 90days
+        
+    Returns:
+        current_price (float) - Current price for ticker
+        change_1day (float) - Percentage price change over last 24hr
+        change_7day (float) - Percentage price change over last 7days
+        change_30day (float) - Percentage price change over last 30days
     '''
-
-    data_90days = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
-    data_1day = yf.download(ticker, period='1d',interval='30m', auto_adjust=True, progress=False)
-
     current_price = data_1day.iloc[-1,3]  #30 min delay in updating current price
     
-    last_trading_day=data_1day.index.format()[0].split(' ')[0]
     date_30_days_ago=datetime.now()-timedelta(days=30)
     date_7_days_ago=datetime.now()-timedelta(days=7)
 
@@ -74,13 +39,30 @@ def overview(ticker:str) -> figure:
 
     
     #find 30-day and 7-day return
-    day_30_return=(current_price-data_90days.loc[date_30_days_ago,'Close'])/data_90days.loc[date_30_days_ago,'Close']*100
-    day_7_return=(current_price-data_90days.loc[date_7_days_ago,'Close'])/data_90days.loc[date_7_days_ago,'Close']*100
+    change_30day=(current_price-data_90day.loc[date_30_days_ago,'Close'])/data_90day.loc[date_30_days_ago,'Close']*100
+    change_7day=(current_price-data_90day.loc[date_7_days_ago,'Close'])/data_90day.loc[date_7_days_ago,'Close']*100
 
     #find daily return (change in from start to end of latest trading day)
-    daily_return = (current_price-data_1day.iloc[0,0])/data_1day.iloc[0,0]*100
+    change_1day = (current_price-data_1day.iloc[0,0])/data_1day.iloc[0,0]*100
+
+    return current_price, change_1day, change_7day, change_30day
 
 
+def visualize_results(ticker:str, data_1day:DataFrame, data_90day:DataFrame, current_price:float, change_1day:float, change_7day:float, change_30day:float) -> figure:
+    '''
+    Parameters:
+        ticker (str) - Stock ticker
+        data_1day (DataFrame) - Price for ticker every 30m for last 24h
+        data_90day (DataFrame) - Price for ticker evert 1h for last 90days
+        current_price (float) - Current price for ticker
+        change_1day (float) - Percentage price change over last 24hr
+        change_7day (float) - Percentage price change over last 7days
+        change_30day (float) - Percentage price change over last 30days
+
+    Returns:
+        fig (figure) - Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
+    '''
+    last_trading_day=data_1day.index.format()[0].split(' ')[0]
 
     fig = figure(figsize=(13,6), style='blueskies')
 
@@ -89,25 +71,28 @@ def overview(ticker:str) -> figure:
     ax2=fig.add_subplot(2,2,2)
     ax2_vol=fig.add_subplot(2,2,4)
 
-    plot(data_90days, ax=ax1, volume=ax1_vol, type='line', datetime_format='%d-%m',xrotation=20, axtitle=ticker + ' last 90 days')
+    plot(data_90day, ax=ax1, volume=ax1_vol, type='line', datetime_format='%d-%m',xrotation=20, axtitle=ticker + ' last 90 days')
     plot(data_1day, ax=ax2, volume=ax2_vol, type='candle',xrotation=20, axtitle=ticker + ' last trading day ('+last_trading_day+')')
-    fig.suptitle('Current market price: ' + '%.2f' % current_price +' , Daily change: ' + '%.2f' % daily_return +'%'+' , 7-day change: ' + '%.2f' % day_7_return +'%'+' , 30-day change: ' + '%.2f' % day_30_return +'%')
+    fig.suptitle('Current market price: ' + '%.2f' % current_price +' , Daily change: ' + '%.2f' % change_1day +'%'+' , 7-day change: ' + '%.2f' % change_7day +'%'+' , 30-day change: ' + '%.2f' % change_30day +'%')
     
     return fig
+    
 
 
-#code to enable passing argument at the same time .py file is called in command line
+#fetch ticker argument from bash terminal command
 parser = ArgumentParser()
 parser.add_argument("-ticker")
 args = parser.parse_args()
 ticker = args.ticker
-
-
-
-#Run
 ticker=ticker.upper() #make ticker all upper case 
 
-fig = overview(ticker)
-show() #display fig
+#download data
+data_1day = yf.download(ticker, period='1d',interval='30m', auto_adjust=True, progress=False)
+data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
 
+#calculate price change for various intervals
+current_price, change_1day, change_7day, change_30day = calculate_price_movement(data_1day, data_90day)
 
+#visualize results
+fig = visualize_results(ticker, data_1day, data_90day, current_price, change_1day, change_7day, change_30day)
+show()
