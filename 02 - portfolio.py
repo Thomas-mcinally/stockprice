@@ -1,81 +1,72 @@
-'''
-Thomas McInally 11/02/2022
-
-This module allows you to eaily view recent price data for a list of yahoo finance stock tickers, with a single command in terminal
-
-How to use:
-1. To get info on stocks in default portfolio, simply execute the command 'portfolio' in terminal
-2. To specify which stocks to show info for (e.g. TSLA and SNAP), execute the command 'portfolio TSLA,SNAP' in terminal
-
-To update the default portfolio, edit 'const' in the add_argument method
-
-How to setup (for git bash):
-1. Download this module and place it in a directory accessible by your terminal
-2. In the home directory for git bash, create the alias by adding the following line to your .bashrc:
-        alias portfolio='cd /c/Users/Bruker/Documents/GitHub/finance && python portfolio.py -portfolio'
-   This alias will allow you to call portfolio.py and pass an argument to it with a single terminal command
-'''
-
-
-
-
-#Import required packages
 import yfinance as yf
 import argparse
 from datetime import datetime, timedelta
+from pandas import DataFrame
 
 
-
-def ticker_summary(ticker:str) -> str:
+def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
     '''
-    Get summary of recent price movement for yahoo finance ticker
-
-            Parameters:
-                ticker (str): Yahoo finance ticker (e.g. TSLA or BTC-USD)
-
-            Returns:
-                price movement (str): A string containing daily, 7-day and 30-day price movement for the ticker
+    Parameters:
+        data_1day (DataFrame) - Price for ticker, every 30m for last 24h
+        data_90day (DataFrame) - Price for ticker evert 1h for last 90days
+        
+    Returns:
+        current_price (float) - Current price for ticker
+        change_1day (float) - Percentage price change over last 24hr
+        change_7day (float) - Percentage price change over last 7days
+        change_30day (float) - Percentage price change over last 30days
     '''
-
-
-    data_90days = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
-    data_1day = yf.download(ticker, period='1d',interval='1m', auto_adjust=True, progress=False)
-    current_price = data_1day.iloc[-1,3] #1 min delay
-    #find date 30 & 7 days ago to extract price from data_90days
+    current_price = data_1day.iloc[-1,3]  #30 min delay in updating current price
+    
     date_30_days_ago=datetime.now()-timedelta(days=30)
     date_7_days_ago=datetime.now()-timedelta(days=7)
+
     #for stocks, change date_30_days_ago and date_7_days_ago to previous friday if it is a sunday or saturday
+    #stock closed on saturdays & sundays
     if '-' not in ticker: #cryptocurrency tickers contain '-', e.g. BTC-USD
         if date_30_days_ago.weekday() == 6:
             date_30_days_ago = date_30_days_ago - timedelta(days=2)
         elif date_30_days_ago.weekday() == 5:
             date_30_days_ago = date_30_days_ago - timedelta(days=1)
+
         if date_7_days_ago.weekday() == 6:
             date_7_days_ago = date_7_days_ago - timedelta(days=2)
         elif date_7_days_ago.weekday() == 5:
             date_7_days_ago = date_7_days_ago - timedelta(days=1)
+
     date_30_days_ago=date_30_days_ago.strftime('%Y-%m-%d')
     date_7_days_ago=date_7_days_ago.strftime('%Y-%m-%d')
+
+    
     #find 30-day and 7-day return
-    day_30_return=(current_price-data_90days.loc[date_30_days_ago,'Close'])/data_90days.loc[date_30_days_ago,'Close']*100
-    day_7_return=(current_price-data_90days.loc[date_7_days_ago,'Close'])/data_90days.loc[date_7_days_ago,'Close']*100
-    #find daily return
-    daily_return = (current_price - data_1day.iloc[0,0])/data_1day.iloc[0,0]*100
-    return(ticker + ' Daily change:' + '%.2f' % daily_return +'%'+' , 7-day change:' + '%.2f' % day_7_return +'%'+' , 30-day change:' + '%.2f' % day_30_return +'%')
+    change_30day=(current_price-data_90day.loc[date_30_days_ago,'Close'])/data_90day.loc[date_30_days_ago,'Close']*100
+    change_7day=(current_price-data_90day.loc[date_7_days_ago,'Close'])/data_90day.loc[date_7_days_ago,'Close']*100
+
+    #find daily return (change in from start to end of latest trading day)
+    change_1day = (current_price-data_1day.iloc[0,0])/data_1day.iloc[0,0]*100
+
+    return current_price, change_1day, change_7day, change_30day
 
 
 
-
-#code to enable passing argument at the same time .py file is called in command line
+#fetch ticker(s) argument from bash terminal command
 parser = argparse.ArgumentParser()
 parser.add_argument('-portfolio', nargs='?', const='TSLA,AMZN,COIN,SNAP') #const is default portfolio
 args = parser.parse_args()
 
+#split input argument into list of stock tickers
+portfolio = args.portfolio.upper().split(',') 
 
-portfolio = args.portfolio.upper().split(',') #list of stock tickers
-
+#calculate historic price change for each ticker
 for ticker in portfolio:
-    summary = ticker_summary(ticker)
+    data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
+    data_1day = yf.download(ticker, period='1d',interval='1m', auto_adjust=True, progress=False)
+    
+    current_price, change_1day, change_7day, change_30day = calculate_price_movement(data_1day, data_90day)
+
+    
+    summary = (ticker + ' Daily change:' + '%.2f' % change_1day +'%'+' , 7-day change:' + '%.2f' % change_7day +'%'+' , 30-day change:' + '%.2f' % change_30day +'%')
+
     print(summary)
 
 
