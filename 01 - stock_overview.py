@@ -1,7 +1,7 @@
 import yfinance as yf
 from mplfinance import figure, plot, show
-from argparse import ArgumentParser
-from datetime import datetime, timedelta
+import argparse
+import datetime
 from pandas import DataFrame
 
 def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
@@ -18,21 +18,21 @@ def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple
     '''
     current_price = data_1day.iloc[-1,3]  #30 min delay in updating current price
     
-    date_30_days_ago=datetime.now()-timedelta(days=30)
-    date_7_days_ago=datetime.now()-timedelta(days=7)
+    date_30_days_ago=datetime.datetime.now()-datetime.timedelta(days=30)
+    date_7_days_ago=datetime.datetime.now()-datetime.timedelta(days=7)
 
     #for stocks, change date_30_days_ago and date_7_days_ago to previous friday if it is a sunday or saturday
     #stock closed on saturdays & sundays
     if '-' not in ticker: #cryptocurrency tickers contain '-', e.g. BTC-USD
         if date_30_days_ago.weekday() == 6:
-            date_30_days_ago = date_30_days_ago - timedelta(days=2)
+            date_30_days_ago = date_30_days_ago - datetime.timedelta(days=2)
         elif date_30_days_ago.weekday() == 5:
-            date_30_days_ago = date_30_days_ago - timedelta(days=1)
+            date_30_days_ago = date_30_days_ago - datetime.timedelta(days=1)
 
         if date_7_days_ago.weekday() == 6:
-            date_7_days_ago = date_7_days_ago - timedelta(days=2)
+            date_7_days_ago = date_7_days_ago - datetime.timedelta(days=2)
         elif date_7_days_ago.weekday() == 5:
-            date_7_days_ago = date_7_days_ago - timedelta(days=1)
+            date_7_days_ago = date_7_days_ago - datetime.timedelta(days=1)
 
     date_30_days_ago=date_30_days_ago.strftime('%Y-%m-%d')
     date_7_days_ago=date_7_days_ago.strftime('%Y-%m-%d')
@@ -80,7 +80,7 @@ def visualize_results(ticker:str, data_1day:DataFrame, data_90day:DataFrame, cur
 
 
 #fetch ticker argument from bash terminal command
-parser = ArgumentParser()
+parser = argparse.ArgumentParser()
 parser.add_argument("-ticker")
 args = parser.parse_args()
 ticker = args.ticker
@@ -96,3 +96,5 @@ current_price, change_1day, change_7day, change_30day = calculate_price_movement
 #visualize results
 fig = visualize_results(ticker, data_1day, data_90day, current_price, change_1day, change_7day, change_30day)
 show()
+
+
