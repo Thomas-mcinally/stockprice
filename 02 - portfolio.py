@@ -4,7 +4,7 @@ import datetime
 from pandas import DataFrame
 
 
-def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
+def calculate_price_movement(ticker:str, data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
     '''
     Parameters:
         data_1day (DataFrame) - Price for ticker, every 30m for last 24h
@@ -45,29 +45,33 @@ def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple
     #find daily return (change in from start to end of latest trading day)
     change_1day = (current_price-data_1day.iloc[0,0])/data_1day.iloc[0,0]*100
 
-    return current_price, change_1day, change_7day, change_30day
+    return change_1day, change_7day, change_30day
 
 
+def main():
+    #fetch ticker(s) argument from bash terminal command
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-portfolio', nargs='?', const='TSLA,AMZN,COIN,SNAP') #const is default portfolio
+    args = parser.parse_args()
 
-#fetch ticker(s) argument from bash terminal command
-parser = argparse.ArgumentParser()
-parser.add_argument('-portfolio', nargs='?', const='TSLA,AMZN,COIN,SNAP') #const is default portfolio
-args = parser.parse_args()
+    #split input argument into list of stock tickers
+    portfolio = args.portfolio.upper().split(',') 
 
-#split input argument into list of stock tickers
-portfolio = args.portfolio.upper().split(',') 
+    #calculate historic price change for each ticker
+    for ticker in portfolio:
+        data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
+        data_1day = yf.download(ticker, period='1d',interval='1m', auto_adjust=True, progress=False)
+        
+        change_1day, change_7day, change_30day = calculate_price_movement(ticker, data_1day, data_90day)
 
-#calculate historic price change for each ticker
-for ticker in portfolio:
-    data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
-    data_1day = yf.download(ticker, period='1d',interval='1m', auto_adjust=True, progress=False)
-    
-    current_price, change_1day, change_7day, change_30day = calculate_price_movement(data_1day, data_90day)
+        
+        summary = (ticker + ' Daily change:' + '%.2f' % change_1day +'%'+' , 7-day change:' + '%.2f' % change_7day +'%'+' , 30-day change:' + '%.2f' % change_30day +'%')
 
-    
-    summary = (ticker + ' Daily change:' + '%.2f' % change_1day +'%'+' , 7-day change:' + '%.2f' % change_7day +'%'+' , 30-day change:' + '%.2f' % change_30day +'%')
+        print(summary)
 
-    print(summary)
+if __name__ == '__main__':
+    main()
+
 
 
 

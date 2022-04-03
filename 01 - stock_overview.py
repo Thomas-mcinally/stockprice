@@ -4,7 +4,7 @@ import argparse
 import datetime
 from pandas import DataFrame
 
-def calculate_price_movement(data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
+def calculate_price_movement(ticker:str, data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
     '''
     Parameters:
         data_1day (DataFrame) - Price for ticker, every 30m for last 24h
@@ -78,23 +78,25 @@ def visualize_results(ticker:str, data_1day:DataFrame, data_90day:DataFrame, cur
     return fig
     
 
+def main():
+    #fetch ticker argument from bash terminal command
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-ticker")
+    args = parser.parse_args()
+    ticker = args.ticker
+    ticker=ticker.upper() #make ticker all upper case 
 
-#fetch ticker argument from bash terminal command
-parser = argparse.ArgumentParser()
-parser.add_argument("-ticker")
-args = parser.parse_args()
-ticker = args.ticker
-ticker=ticker.upper() #make ticker all upper case 
+    #download data
+    data_1day = yf.download(ticker, period='1d',interval='30m', auto_adjust=True, progress=False)
+    data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
 
-#download data
-data_1day = yf.download(ticker, period='1d',interval='30m', auto_adjust=True, progress=False)
-data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
+    #calculate price change for various intervals
+    current_price, change_1day, change_7day, change_30day = calculate_price_movement(ticker, data_1day, data_90day)
 
-#calculate price change for various intervals
-current_price, change_1day, change_7day, change_30day = calculate_price_movement(data_1day, data_90day)
+    #visualize results
+    fig = visualize_results(ticker, data_1day, data_90day, current_price, change_1day, change_7day, change_30day)
+    show()
 
-#visualize results
-fig = visualize_results(ticker, data_1day, data_90day, current_price, change_1day, change_7day, change_30day)
-show()
-
+if __name__ == '__main__':
+    main()
 
