@@ -1,14 +1,15 @@
+import pandas as pd
 import yfinance as yf
 from mplfinance import figure, plot, show
 import argparse
 import datetime
-from pandas import DataFrame
 
-def calculate_price_movement(ticker:str, data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
+
+def calculate_price_movement(ticker:str, data_1day:pd.DataFrame, data_90day:pd.DataFrame) -> tuple((float,float,float,float)):
     '''
     Parameters:
-        data_1day (DataFrame) - Price for ticker, every 30m for last 24h
-        data_90day (DataFrame) - Price for ticker evert 1h for last 90days
+        data_1day (pd.DataFrame) - Price for ticker, every 30m for last 24h
+        data_90day (pd.DataFrame) - Price for ticker evert 1h for last 90days
         
     Returns:
         current_price (float) - Current price for ticker
@@ -48,12 +49,12 @@ def calculate_price_movement(ticker:str, data_1day:DataFrame, data_90day:DataFra
     return current_price, change_1day, change_7day, change_30day
 
 
-def visualize_results(ticker:str, data_1day:DataFrame, data_90day:DataFrame, current_price:float, change_1day:float, change_7day:float, change_30day:float) -> figure:
+def visualize_results(ticker:str, data_1day:pd.DataFrame, data_90day:pd.DataFrame, current_price:float, change_1day:float, change_7day:float, change_30day:float) -> figure:
     '''
     Parameters:
         ticker (str) - Stock ticker
-        data_1day (DataFrame) - Price for ticker every 30m for last 24h
-        data_90day (DataFrame) - Price for ticker evert 1h for last 90days
+        data_1day (pd.DataFrame) - Price for ticker every 30m for last 24h
+        data_90day (pd.DataFrame) - Price for ticker evert 1h for last 90days
         current_price (float) - Current price for ticker
         change_1day (float) - Percentage price change over last 24hr
         change_7day (float) - Percentage price change over last 7days

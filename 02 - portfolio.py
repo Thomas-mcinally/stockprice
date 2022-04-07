@@ -1,14 +1,15 @@
+import pandas as pd
 import yfinance as yf
 import argparse
 import datetime
-from pandas import DataFrame
 
 
-def calculate_price_movement(ticker:str, data_1day:DataFrame, data_90day:DataFrame) -> tuple((float,float,float,float)):
+
+def calculate_price_movement(ticker:str, data_1day:pd.DataFrame, data_90day:pd.DataFrame) -> tuple((float,float,float,float)):
     '''
     Parameters:
-        data_1day (DataFrame) - Price for ticker, every 30m for last 24h
-        data_90day (DataFrame) - Price for ticker evert 1h for last 90days
+        data_1day (pd.DataFrame) - Price for ticker, every 30m for last 24h
+        data_90day (pd.DataFrame) - Price for ticker evert 1h for last 90days
         
     Returns:
         current_price (float) - Current price for ticker
