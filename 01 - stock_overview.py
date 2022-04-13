@@ -5,25 +5,26 @@ import argparse
 import datetime
 
 
+
 def calculate_price_movement(ticker:str, data_1day:pd.DataFrame, data_90day:pd.DataFrame) -> tuple((float,float,float,float)):
     '''
     Parameters:
-        data_1day (pd.DataFrame) - Price for ticker, every 30m for last 24h
-        data_90day (pd.DataFrame) - Price for ticker evert 1h for last 90days
+        data_1day (pd.DataFrame): Price for ticker, every 30m for last 24h
+        data_90day (pd.DataFrame): Price for ticker evert 1h for last 90days
         
     Returns:
-        current_price (float) - Current price for ticker
-        change_1day (float) - Percentage price change over last 24hr
-        change_7day (float) - Percentage price change over last 7days
-        change_30day (float) - Percentage price change over last 30days
+        current_price (float): Current price for ticker
+        change_1day (float): Percentage price change over last 24hr
+        change_7day (float): Percentage price change over last 7days
+        change_30day (float): Percentage price change over last 30days
     '''
-    current_price = data_1day.iloc[-1,3]  #30 min delay in updating current price
+    current_price = data_1day.iloc[-1,3]  
     
     date_30_days_ago=datetime.datetime.now()-datetime.timedelta(days=30)
     date_7_days_ago=datetime.datetime.now()-datetime.timedelta(days=7)
 
-    #for stocks, change date_30_days_ago and date_7_days_ago to previous friday if it is a sunday or saturday
-    #stock closed on saturdays & sundays
+
+    #normal stock market closed on saturdays & sundays
     if '-' not in ticker: #cryptocurrency tickers contain '-', e.g. BTC-USD
         if date_30_days_ago.weekday() == 6:
             date_30_days_ago = date_30_days_ago - datetime.timedelta(days=2)
@@ -38,12 +39,9 @@ def calculate_price_movement(ticker:str, data_1day:pd.DataFrame, data_90day:pd.D
     date_30_days_ago=date_30_days_ago.strftime('%Y-%m-%d')
     date_7_days_ago=date_7_days_ago.strftime('%Y-%m-%d')
 
-    
-    #find 30-day and 7-day return
     change_30day=(current_price-data_90day.loc[date_30_days_ago,'Close'])/data_90day.loc[date_30_days_ago,'Close']*100
     change_7day=(current_price-data_90day.loc[date_7_days_ago,'Close'])/data_90day.loc[date_7_days_ago,'Close']*100
 
-    #find daily return (change in from start to end of latest trading day)
     change_1day = (current_price-data_1day.iloc[0,0])/data_1day.iloc[0,0]*100
 
     return current_price, change_1day, change_7day, change_30day
@@ -52,16 +50,16 @@ def calculate_price_movement(ticker:str, data_1day:pd.DataFrame, data_90day:pd.D
 def visualize_results(ticker:str, data_1day:pd.DataFrame, data_90day:pd.DataFrame, current_price:float, change_1day:float, change_7day:float, change_30day:float) -> figure:
     '''
     Parameters:
-        ticker (str) - Stock ticker
-        data_1day (pd.DataFrame) - Price for ticker every 30m for last 24h
-        data_90day (pd.DataFrame) - Price for ticker evert 1h for last 90days
-        current_price (float) - Current price for ticker
-        change_1day (float) - Percentage price change over last 24hr
-        change_7day (float) - Percentage price change over last 7days
-        change_30day (float) - Percentage price change over last 30days
+        ticker (str): Stock ticker
+        data_1day (pd.DataFrame): Price for ticker every 30m for last 24h
+        data_90day (pd.DataFrame): Price for ticker evert 1h for last 90days
+        current_price (float): Current price for ticker
+        change_1day (float): Percentage price change over last 24hr
+        change_7day (float): Percentage price change over last 7days
+        change_30day (float): Percentage price change over last 30days
 
     Returns:
-        fig (figure) - Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
+        fig (figure): Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
     '''
     last_trading_day=data_1day.index.format()[0].split(' ')[0]
 
@@ -85,16 +83,13 @@ def main():
     parser.add_argument("-ticker")
     args = parser.parse_args()
     ticker = args.ticker
-    ticker=ticker.upper() #make ticker all upper case 
+    ticker=ticker.upper()  
 
-    #download data
     data_1day = yf.download(ticker, period='1d',interval='30m', auto_adjust=True, progress=False)
     data_90day = yf.download(ticker, period='90d',interval='1d', auto_adjust=True, progress=False)
 
-    #calculate price change for various intervals
     current_price, change_1day, change_7day, change_30day = calculate_price_movement(ticker, data_1day, data_90day)
 
-    #visualize results
     fig = visualize_results(ticker, data_1day, data_90day, current_price, change_1day, change_7day, change_30day)
     show()
 
