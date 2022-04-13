@@ -1,3 +1,5 @@
+#Implement to be usable by powershell
+
 #stock_overview.py
 '''
 1. Improve accuracy of 7-day and 30-day % change by using hourly instead of daily data for closing price 
