@@ -1,12 +1,13 @@
-A set of bash-terminal tools for personal finance
+A set of unix-terminal tools for personal finance
 
 - The tools utilize the Yahoo Finance API
 - Work for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD) 
+- Works for terminals running unix shells (e.g. Bash, Zsh)
 
 
 # Stock_overview.py
 
-**Input:** One-line command in bash terminal (info TICKER)
+**Input:** One-line command in terminal (info TICKER)
 
 ![](images/input_stock_overview.GIF)
 
@@ -14,14 +15,10 @@ A set of bash-terminal tools for personal finance
 
 ![](images/output_stock_overview.GIF)
 
-## Steps to run locally 
-1. Download this module and place it in a directory accessible by your bash terminal
-2. Add the following line to your .bashrc:  alias info='cd /c/PATH/TO/DIRECTORY/WITH/MODULE && python stock_overview.py -ticker'
-
 
 # Portfolio.py
 
-**Input:** One-line command in bash terminal  (portfolio LIST,OF,TICKERS)
+**Input:** One-line command in terminal  (portfolio LIST,OF,TICKERS)
 
 ![](images/input_portfolio.GIF)
 
@@ -29,6 +26,6 @@ A set of bash-terminal tools for personal finance
 
 ![](images/output_portfolio.GIF)
 
-## Steps to run locally 
-1. Download this module and place it in a directory accessible by your bash terminal
-2. Add the following line to your .bashrc:  alias portfolio='cd /c/PATH/TO/DIRECTORY/WITH/MODULE && python portfolio.py -portfolio'
+## Steps to setup locally 
+1. Clone this repository
+2. Run install.sh script from this directory
