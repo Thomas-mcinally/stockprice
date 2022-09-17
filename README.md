@@ -1,4 +1,4 @@
-A set of unix-terminal tools for personal finance
+A set of terminal tools for personal finance
 
 - The tools utilize the Yahoo Finance API
 - Work for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD) 
