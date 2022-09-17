@@ -28,4 +28,5 @@ A set of unix-terminal tools for personal finance
 
 ## Steps to setup locally 
 1. Clone this repository
-2. `./install.sh` while in this directory
+2. `pipenv install` in this directory
+3. `./install.sh` while in this directory
