@@ -10,6 +10,11 @@ mplfinance = "*"
 yfinance = "*"
 
 [dev-packages]
+autoflake = "*"
+black = "*"
 
 [requires]
 python_version = "3.10"
+
+[scripts]
+format = "bash -c \"autoflake --remove-all-unused-imports -i -r . && black .\""
