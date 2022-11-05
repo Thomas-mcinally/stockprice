@@ -1,6 +1,6 @@
 import pandas as pd
 import yfinance as yf
-from mplfinance import figure, plot, show
+from mplfinance import figure, plot, show, Figure
 import argparse
 import datetime
 
@@ -63,7 +63,7 @@ def visualize_results(
     change_1day: float,
     change_7day: float,
     change_30day: float,
-) -> figure:
+) -> Figure:
     """
     Parameters:
         ticker (str): Stock ticker
@@ -75,7 +75,7 @@ def visualize_results(
         change_30day (float): Percentage price change over last 30days
 
     Returns:
-        fig (figure): Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
+        fig (Figure): Matplotlib finance figure containing 90day line plot and 24hr candle stick plot of price movement
     """
     last_trading_day = data_1day.index.format()[0].split(" ")[0]
 
