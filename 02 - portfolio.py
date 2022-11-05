@@ -6,7 +6,7 @@ import datetime
 
 def calculate_price_movement(
     ticker: str, data_1day: pd.DataFrame, data_90day: pd.DataFrame
-) -> tuple((float, float, float, float)):
+) -> tuple[float, float, float, float]:
     """
     Parameters:
         data_1day (pd.DataFrame): Price for ticker, every 30m for last 24h
