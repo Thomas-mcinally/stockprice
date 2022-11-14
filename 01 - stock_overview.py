@@ -1,6 +1,7 @@
+from matplotlib.figure import Figure
 import pandas as pd
 import yfinance as yf
-from mplfinance import figure, plot, show, Figure
+from mplfinance import figure, plot, show
 import argparse
 import datetime
 
