@@ -9,22 +9,22 @@ A set of terminal tools for personal finance
 
 **Input:** One-line command in terminal (info TICKER)
 
-![](images/input_stock_overview.GIF)
+![](images/input_stock_overview.png)
 
 **Output:** Pop-out matplotlib window with historic price movement and trading volumes for that ticker
 
-![](images/output_stock_overview.GIF)
+![](images/output_stock_overview.png)
 
 
 # Portfolio.py
 
 **Input:** One-line command in terminal  (portfolio LIST,OF,TICKERS)
 
-![](images/input_portfolio.GIF)
+![](images/input_portfolio.png)
 
 **Output:** Returns daily change, 7-day change and 30-day change for all tickers
 
-![](images/output_portfolio.GIF)
+![](images/output_portfolio.png)
 
 ## Steps to setup locally 
 1. Clone this repository
