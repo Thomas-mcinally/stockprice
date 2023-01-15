@@ -27,6 +27,7 @@ A set of terminal tools for personal finance
 ![](images/output_portfolio.png)
 
 ## Steps to setup locally 
+Before running the commands below, make sure `pipenv` is installed
 1. Clone this repository
 2. `pipenv install` in this directory
 3. `./install.sh` in this directory
