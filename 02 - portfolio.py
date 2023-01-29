@@ -13,6 +13,7 @@ def calculate_price_movement(
         data_90day (pd.DataFrame): Price for ticker, every 1h for last 90days
 
     Returns:
+        current_price (float): Current price 
         change_1day (float): Percentage price change during last trading day
         change_7day (float): Percentage price change since last trading day >=7days ago
         change_30day (float): Percentage price change since last trading day >=30days ago
@@ -51,7 +52,7 @@ def calculate_price_movement(
 
     change_1day = (current_price - data_1day.iloc[0, 0]) / data_1day.iloc[0, 0] * 100
 
-    return change_1day, change_7day, change_30day
+    return current_price, change_1day, change_7day, change_30day
 
 
 def main():
@@ -72,21 +73,19 @@ def main():
             ticker, period="1d", interval="1m", auto_adjust=True, progress=False
         )
 
-        change_1day, change_7day, change_30day = calculate_price_movement(
-            data_1day, data_90day
-        )
+        (
+            current_price,
+            change_1day,
+            change_7day,
+            change_30day,
+        ) = calculate_price_movement(data_1day, data_90day)
 
         summary = (
             ticker
-            + " Daily change:"
-            + "%.2f" % change_1day
-            + "%"
-            + " , 7-day change:"
-            + "%.2f" % change_7day
-            + "%"
-            + " , 30-day change:"
-            + "%.2f" % change_30day
-            + "%"
+            + f" -- Current price: {current_price:.2f} -- "
+            + f"Daily change: {change_1day:.2f}%"
+            + f", 7-day change: {change_7day:.2f}%"
+            + f", 30-day change: {change_30day:.2f}%"
         )
 
         print(summary)
