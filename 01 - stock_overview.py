@@ -107,7 +107,7 @@ def visualize_results(
         axtitle=f"{ticker} last trading day ({last_trading_day})",
     )
     fig.suptitle(
-        f"Current market price: {current_price:.2f} , Daily change {change_1day:.2f}% , 30-day change: {change_30day:.2f}%"
+        f"Current market price: {current_price:.2f} , Daily change {change_1day:.2f}% , 7-day change: {change_7day:.2f}%, 30-day change: {change_30day:.2f}%"
     )
 
     return fig
