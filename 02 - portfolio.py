@@ -5,7 +5,7 @@ import datetime
 
 
 def calculate_price_movement(
-    ticker: str, data_1day: pd.DataFrame, data_90day: pd.DataFrame
+    data_1day: pd.DataFrame, data_90day: pd.DataFrame
 ) -> tuple[float, float, float, float]:
     """
     Parameters:
@@ -20,34 +20,36 @@ def calculate_price_movement(
     """
     current_price = data_1day.iloc[-1, 3]
 
-    date_30_days_ago = datetime.datetime.now() - datetime.timedelta(days=30)
-    date_7_days_ago = datetime.datetime.now() - datetime.timedelta(days=7)
+    datetime_30_days_ago = datetime.datetime.now() - datetime.timedelta(days=30)
+    datetime_7_days_ago = datetime.datetime.now() - datetime.timedelta(days=7)
 
-    # normal stock market closed on saturdays & sundays
-    if "-" not in ticker:  # cryptocurrency tickers contain '-', e.g. BTC-USD
-        if date_30_days_ago.weekday() == 6:
-            date_30_days_ago = date_30_days_ago - datetime.timedelta(days=2)
-        elif date_30_days_ago.weekday() == 5:
-            date_30_days_ago = date_30_days_ago - datetime.timedelta(days=1)
+    finding_trading_day_data_30 = True
+    while finding_trading_day_data_30:
+        try:
+            date_30_days_ago = datetime_30_days_ago.strftime("%Y-%m-%d")
+            change_30day = (
+                (current_price - data_90day.loc[date_30_days_ago, "Close"])
+                / data_90day.loc[date_30_days_ago, "Close"]
+                * 100
+            )
+            finding_trading_day_data_30 = False
+        except KeyError:
+            # no data because this day was not a trading day
+            datetime_30_days_ago = datetime_30_days_ago - datetime.timedelta(days=1)
 
-        if date_7_days_ago.weekday() == 6:
-            date_7_days_ago = date_7_days_ago - datetime.timedelta(days=2)
-        elif date_7_days_ago.weekday() == 5:
-            date_7_days_ago = date_7_days_ago - datetime.timedelta(days=1)
-
-    date_30_days_ago = date_30_days_ago.strftime("%Y-%m-%d")
-    date_7_days_ago = date_7_days_ago.strftime("%Y-%m-%d")
-
-    change_30day = (
-        (current_price - data_90day.loc[date_30_days_ago, "Close"])
-        / data_90day.loc[date_30_days_ago, "Close"]
-        * 100
-    )
-    change_7day = (
-        (current_price - data_90day.loc[date_7_days_ago, "Close"])
-        / data_90day.loc[date_7_days_ago, "Close"]
-        * 100
-    )
+    finding_trading_day_data_7 = True
+    while finding_trading_day_data_7:
+        try:
+            date_7_days_ago = datetime_7_days_ago.strftime("%Y-%m-%d")
+            change_7day = (
+                (current_price - data_90day.loc[date_7_days_ago, "Close"])
+                / data_90day.loc[date_7_days_ago, "Close"]
+                * 100
+            )
+            finding_trading_day_data_7 = False
+        except KeyError:
+            # no data because this day was not a trading day
+            datetime_7_days_ago = datetime_7_days_ago - datetime.timedelta(days=1)
 
     change_1day = (current_price - data_1day.iloc[0, 0]) / data_1day.iloc[0, 0] * 100
 
@@ -73,7 +75,7 @@ def main():
         )
 
         change_1day, change_7day, change_30day = calculate_price_movement(
-            ticker, data_1day, data_90day
+            data_1day, data_90day
         )
 
         summary = (
