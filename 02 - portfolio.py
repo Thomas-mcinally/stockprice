@@ -6,20 +6,18 @@ import datetime
 
 def calculate_price_movement(
     data_1day: pd.DataFrame, data_90day: pd.DataFrame
-) -> tuple[float, float, float, float]:
+) -> tuple[float, float, float]:
     """
     Parameters:
-        data_1day (pd.DataFrame): Price for ticker, every 30m for last 24h
-        data_90day (pd.DataFrame): Price for ticker evert 1h for last 90days
+        data_1day (pd.DataFrame): Price for ticker, every 1m for last 24h
+        data_90day (pd.DataFrame): Price for ticker, every 1h for last 90days
 
     Returns:
-        current_price (float): Current price for ticker
-        change_1day (float): Percentage price change over last 24hr
-        change_7day (float): Percentage price change over last 7days
-        change_30day (float): Percentage price change over last 30days
+        change_1day (float): Percentage price change during last trading day
+        change_7day (float): Percentage price change since last trading day >=7days ago
+        change_30day (float): Percentage price change since last trading day >=30days ago
     """
     current_price = data_1day.iloc[-1, 3]
-
     datetime_30_days_ago = datetime.datetime.now() - datetime.timedelta(days=30)
     datetime_7_days_ago = datetime.datetime.now() - datetime.timedelta(days=7)
 
@@ -60,7 +58,7 @@ def main():
     # fetch ticker(s) argument from bash terminal command
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-portfolio", nargs="?", const="TSLA,AMZN,COIN,SNAP"
+        "-portfolio", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
     )  # const is default portfolio
     args = parser.parse_args()
 
