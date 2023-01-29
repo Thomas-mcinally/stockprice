@@ -96,7 +96,7 @@ def visualize_results(
         type="line",
         datetime_format="%d-%m",
         xrotation=20,
-        axtitle=ticker + " last 90 days",
+        axtitle=f"{ticker} last 90 days",
     )
     plot(
         data_1day,
@@ -104,20 +104,10 @@ def visualize_results(
         volume=ax2_vol,
         type="candle",
         xrotation=20,
-        axtitle=ticker + " last trading day (" + last_trading_day + ")",
+        axtitle=f"{ticker} last trading day ({last_trading_day})",
     )
     fig.suptitle(
-        "Current market price: "
-        + "%.2f" % current_price
-        + " , Daily change: "
-        + "%.2f" % change_1day
-        + "%"
-        + " , 7-day change: "
-        + "%.2f" % change_7day
-        + "%"
-        + " , 30-day change: "
-        + "%.2f" % change_30day
-        + "%"
+        f"Current market price: {current_price:.2f} , Daily change {change_1day:.2f}% , 30-day change: {change_30day:.2f}%"
     )
 
     return fig
