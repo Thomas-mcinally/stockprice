@@ -7,7 +7,7 @@ A set of terminal tools for personal finance
 
 # Stockplot.py
 
-**Input:** One-line command in terminal (info TICKER)
+**Input:** One-line command in terminal (stockplot TICKER)
 
 ![](images/input_stock_overview.png)
 
