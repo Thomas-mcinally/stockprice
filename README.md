@@ -5,7 +5,7 @@ A set of terminal tools for personal finance
 - Works for terminals running unix shells (e.g. Bash, Zsh)
 
 
-# Stock_overview.py
+# Stockplot.py
 
 **Input:** One-line command in terminal (info TICKER)
 
@@ -16,9 +16,9 @@ A set of terminal tools for personal finance
 ![](images/output_stock_overview.png)
 
 
-# Portfolio.py
+# Stock.py
 
-**Input:** One-line command in terminal  (portfolio LIST,OF,TICKERS)
+**Input:** One-line command in terminal  (stock LIST,OF,TICKERS)
 
 ![](images/input_portfolio.png)
 

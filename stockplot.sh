@@ -3,4 +3,4 @@
 input_ticker=$1
 
 cd ~/Documents/Terminal-finance
-pipenv run python 01\ -\ stock_overview.py -ticker ${input_ticker}
+pipenv run python stockplot.py -ticker ${input_ticker}

@@ -59,13 +59,13 @@ def main():
     # fetch ticker(s) argument from bash terminal command
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-portfolio", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
-    )  # const is default portfolio
+        "-stocks", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
+    )  # const is default stocks
     args = parser.parse_args()
 
-    portfolio = args.portfolio.upper().split(",")
+    stocks = args.stocks.upper().split(",")
 
-    for ticker in portfolio:
+    for ticker in stocks:
         data_90day = yf.download(
             ticker, period="90d", interval="1d", auto_adjust=True, progress=False
         )
