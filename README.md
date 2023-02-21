@@ -9,22 +9,22 @@ A set of terminal tools for personal finance
 
 **Input:** One-line command in terminal (stockplot TICKER)
 
-![](images/input_stock_overview.png)
+![](images/input_stockplot.png)
 
 **Output:** Pop-out matplotlib window with historic price movement and trading volumes for that ticker
 
-![](images/output_stock_overview.png)
+![](images/output_stockplot.png)
 
 
 # Stock.py
 
 **Input:** One-line command in terminal  (stock LIST,OF,TICKERS)
 
-![](images/input_portfolio.png)
+![](images/input_stock.png)
 
 **Output:** Returns daily change, 7-day change and 30-day change for all tickers
 
-![](images/output_portfolio.png)
+![](images/output_stock.png)
 
 ## Steps to setup locally 
 Before running the commands below, make sure `pipenv` is installed
