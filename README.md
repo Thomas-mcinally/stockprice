@@ -26,8 +26,10 @@ A set of terminal tools for personal finance
 
 ![](images/output_stock.png)
 
-## Steps to setup locally 
+## Steps to setup 
 Before running the commands below, make sure `pipenv` is installed
 1. Clone this repository
 2. `pipenv install` in this directory
 3. `./install.sh` in this directory
+
+The commands `stock` and `stockplot` are noe available globally
