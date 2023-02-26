@@ -8,7 +8,7 @@ def mocked_responses():
         yield rsps
 
 
-example_api_response_90day = {
+example_yahoo_api_response_90day_tsla = {
     "chart": {
         "result": [
             {
@@ -721,7 +721,7 @@ example_api_response_90day = {
     }
 }
 
-example_api_response_1day = {
+example_yahoo_api_response_1day_tsla = {
     "chart": {
         "result": [
             {

@@ -1,5 +1,5 @@
 import responses
-from domain.conftest import example_api_response_1day, example_api_response_90day
+from domain.conftest import example_yahoo_api_response_1day_tsla, example_yahoo_api_response_90day_tsla
 from domain.calculate_price_movement import calculate_price_movement
 
 def test_calculate_price_movement(mocked_responses):
@@ -16,7 +16,7 @@ def test_calculate_price_movement(mocked_responses):
             )
         ],
         status=200,
-        json=example_api_response_90day,
+        json=example_yahoo_api_response_90day_tsla,
     )
     mocked_responses.get(
         "https://query2.finance.yahoo.com/v8/finance/chart/TSLA",
@@ -31,7 +31,7 @@ def test_calculate_price_movement(mocked_responses):
             )
         ],
         status=200,
-        json=example_api_response_1day,
+        json=example_yahoo_api_response_1day_tsla,
     )
 
     calculate_price_movement("tsla")
