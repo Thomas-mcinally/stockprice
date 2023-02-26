@@ -35,8 +35,8 @@ def test_calculate_price_movement(mocked_responses):
     )
 
     current_price, change_1day, change_7day, change_30day = calculate_price_movement("tsla")
-
-    assert round(current_price, 2) == 196.86
-    assert round(change_1day, 2) == 0.27
-    assert round(change_7day, 2) == -5.50
-    assert round(change_30day, 2) == 10.66
+    expected_current_price, expected_change_1day, expected_change_7day, expected_change_30day  = 196.86, 0.27, -5.50, 10.66
+    assert round(current_price, 2) == expected_current_price
+    assert round(change_1day, 2) == expected_change_1day
+    assert round(change_7day, 2) == expected_change_7day
+    assert round(change_30day, 2) == expected_change_30day
