@@ -58,5 +58,6 @@ jobs:
         shell: bash
         run: pipenv install
       - run: echo $SHELL
+      - run: cat ~/.bashrc
       - run: ./install.sh
       - run: ./stock.sh tsla,aapl
