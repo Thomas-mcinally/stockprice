@@ -7,7 +7,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-stocks", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
-    )  # const is default stocks
+    )  # const is default argument
     args = parser.parse_args()
 
     stocks = args.stocks.upper().split(",")
