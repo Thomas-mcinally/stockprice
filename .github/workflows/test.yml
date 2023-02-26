@@ -58,5 +58,5 @@ jobs:
         shell: bash
         run: pipenv install
       - run: ./install.sh
-      - run: exec "$SHELL
+      - run: exec $SHELL
       - run: stock tsla,aapl
