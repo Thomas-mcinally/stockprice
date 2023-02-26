@@ -1,6 +1,10 @@
 import responses
-from tests.conftest import example_yahoo_api_response_1day_tsla, example_yahoo_api_response_90day_tsla
+from tests.conftest import (
+    example_yahoo_api_response_1day_tsla,
+    example_yahoo_api_response_90day_tsla,
+)
 from shared import calculate_price_movement
+
 
 def test_calculate_price_movement(mocked_responses):
     mocked_responses.get(
@@ -34,8 +38,15 @@ def test_calculate_price_movement(mocked_responses):
         json=example_yahoo_api_response_1day_tsla,
     )
 
-    current_price, change_1day, change_7day, change_30day = calculate_price_movement("tsla")
-    expected_current_price, expected_change_1day, expected_change_7day, expected_change_30day  = 196.86, 0.27, -5.50, 10.66
+    current_price, change_1day, change_7day, change_30day = calculate_price_movement(
+        "tsla"
+    )
+    (
+        expected_current_price,
+        expected_change_1day,
+        expected_change_7day,
+        expected_change_30day,
+    ) = (196.86, 0.27, -5.50, 10.66)
     assert round(current_price, 2) == expected_current_price
     assert round(change_1day, 2) == expected_change_1day
     assert round(change_7day, 2) == expected_change_7day

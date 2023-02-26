@@ -14,9 +14,12 @@ autoflake = "*"
 black = "*"
 pytest = "*"
 responses = "*"
+pre-commit = "*"
 
 [requires]
 python_version = "3.10"
 
 [scripts]
+setup = "bash -c \"pre-commit install\""
 format = "bash -c \"autoflake --remove-all-unused-imports -i -r . && black .\""
+format-check = "bash -c \"autoflake --remove-all-unused-imports -c -r . && black --check --diff .\""
