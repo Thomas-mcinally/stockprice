@@ -6,7 +6,7 @@ import yfinance
 def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
     """
     Parameters:
-        ticker (str): Ticker of asset to find investigate
+        ticker (str): Ticker of asset to investigate
 
     Returns:
         current_price (float): Current price

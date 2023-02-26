@@ -34,4 +34,9 @@ def test_calculate_price_movement(mocked_responses):
         json=example_yahoo_api_response_1day_tsla,
     )
 
-    calculate_price_movement("tsla")
+    current_price, change_1day, change_7day, change_30day = calculate_price_movement("tsla")
+
+    assert round(current_price, 2) == 196.86
+    assert round(change_1day, 2) == 0.27
+    assert round(change_7day, 2) == -5.50
+    assert round(change_30day, 2) == 10.66
