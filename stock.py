@@ -1,4 +1,3 @@
-import yfinance as yf
 import argparse
 
 from domain.calculate_price_movement import calculate_price_movement
