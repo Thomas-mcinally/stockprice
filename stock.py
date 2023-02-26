@@ -4,7 +4,6 @@ from domain.calculate_price_movement import calculate_price_movement
 
 
 def main():
-    # fetch ticker(s) argument from bash terminal command
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-stocks", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
