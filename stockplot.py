@@ -70,15 +70,15 @@ def main():
     ticker = args.ticker
     ticker = ticker.upper()
 
-    data_1day = yf.download(
-        ticker, period="1d", interval="30m", auto_adjust=True, progress=False
-    )
     data_90day = yf.download(
         ticker, period="90d", interval="1d", auto_adjust=True, progress=False
     )
+    data_1day = yf.download(
+        ticker, period="1d", interval="30m", auto_adjust=True, progress=False
+    )
 
     current_price, change_1day, change_7day, change_30day = calculate_price_movement(
-        data_1day, data_90day
+        ticker
     )
 
     fig = visualize_results(
