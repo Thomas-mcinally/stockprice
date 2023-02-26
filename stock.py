@@ -1,6 +1,6 @@
 import argparse
 
-from domain.calculate_price_movement import calculate_price_movement
+from shared import calculate_price_movement
 
 
 def main():

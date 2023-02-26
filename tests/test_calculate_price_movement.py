@@ -1,6 +1,6 @@
 import responses
-from domain.conftest import example_yahoo_api_response_1day_tsla, example_yahoo_api_response_90day_tsla
-from domain.calculate_price_movement import calculate_price_movement
+from tests.conftest import example_yahoo_api_response_1day_tsla, example_yahoo_api_response_90day_tsla
+from shared import calculate_price_movement
 
 def test_calculate_price_movement(mocked_responses):
     mocked_responses.get(
