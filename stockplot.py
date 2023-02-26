@@ -63,7 +63,6 @@ def visualize_results(
 
 
 def main():
-    # fetch ticker argument from bash terminal command
     parser = argparse.ArgumentParser()
     parser.add_argument("-ticker")
     args = parser.parse_args()
