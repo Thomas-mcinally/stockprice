@@ -12,6 +12,8 @@ yfinance = "*"
 [dev-packages]
 autoflake = "*"
 black = "*"
+pytest = "*"
+responses = "*"
 
 [requires]
 python_version = "3.10"

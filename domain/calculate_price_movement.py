@@ -3,9 +3,7 @@ import pandas as pd
 import yfinance
 
 
-def calculate_price_movement(
-    ticker: str
-) -> tuple[float, float, float]:
+def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
     """
     Parameters:
         ticker (str): Ticker of asset to find investigate
@@ -17,12 +15,11 @@ def calculate_price_movement(
         change_30day (float): Percentage price change since last trading day >=30days ago
     """
     data_90day: pd.DataFrame = yfinance.download(
-            ticker, period="90d", interval="1d", auto_adjust=True, progress=False
-        )
+        ticker, period="90d", interval="1d", auto_adjust=True, progress=False
+    )
     data_1day: pd.DataFrame = yfinance.download(
         ticker, period="1d", interval="1m", auto_adjust=True, progress=False
     )
-    
 
     current_price = data_1day.iloc[-1, 3]
     datetime_30_days_ago = datetime.datetime.now() - datetime.timedelta(days=30)
