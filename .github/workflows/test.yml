@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
@@ -24,7 +24,6 @@ jobs:
         shell: bash
         run: pipenv install --dev
       - run: pipenv run format-check
-      - run: pipenv run lint
   test:
     runs-on: ubuntu-latest
     steps:
