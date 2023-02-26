@@ -57,4 +57,4 @@ jobs:
       - name: Pipenv install
         shell: bash
         run: pipenv install
-      - run: ./install.sh && exec $SHELL && stock tsla,aapl
+      - run: ./install.sh;exec $SHELL;stock tsla,aapl
