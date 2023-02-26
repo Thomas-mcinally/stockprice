@@ -58,6 +58,4 @@ jobs:
         shell: bash
         run: pipenv install
       - run: ./install.sh
-      - name: test stock.py
-        shell: bash
-        run: stock aapl,tsla
+      - run: ./stock.sh tsla,aapl
