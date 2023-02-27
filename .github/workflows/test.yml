@@ -57,9 +57,18 @@ jobs:
       - name: Pipenv install
         shell: bash
         run: pipenv install
-      - run: |
+      - name: smoke test stock.sh
+        run: |
           shopt -s expand_aliases
           alias stockplot=${PWD}/stockplot.sh
           alias stock=${PWD}/stock.sh
           ./install.sh
           stock tsla,aapl
+      - name: smoke test stockplot.sh
+        run: |
+          shopt -s expand_aliases
+          alias stockplot=${PWD}/stockplot.sh
+          alias stock=${PWD}/stock.sh
+          ./install.sh
+          stockplot tsla
+          
