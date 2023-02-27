@@ -59,5 +59,7 @@ jobs:
         run: pipenv install
       - run: |
           shopt -s expand_aliases
+          alias stockplot=${PWD}/stockplot.sh
+          alias stock=${PWD}/stock.sh
           ./install.sh
           stock tsla,aapl
