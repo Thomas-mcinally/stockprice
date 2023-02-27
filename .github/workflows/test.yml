@@ -59,11 +59,14 @@ jobs:
         run: pipenv install
       - name: install stock-price-cli
         run: |
-          shopt -s expand_aliases
           alias stockplot=${PWD}/stockplot.sh
           alias stock=${PWD}/stock.sh
           ./install.sh
       - name: smoke test stock.sh
-        run: stock tsla,aapl
+        run: |
+          shopt -s expand_aliases
+          stock tsla,aapl
       - name: smoke test stockplot.sh
-        run: stockplot tsla
+        run: |
+          shopt -s expand_aliases
+          stockplot tsla
