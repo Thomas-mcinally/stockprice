@@ -54,11 +54,13 @@ jobs:
       - name: install stock-price-cli
         run: ./install.sh
       - name: smoke test stock
+      # https://github.com/actions/toolkit/issues/766
         run: |
           shopt -s expand_aliases
           alias stock=${PWD}/stock.sh
           stock tsla,aapl
       - name: smoke test stockplot
+      # https://github.com/actions/toolkit/issues/766
         run: |
           shopt -s expand_aliases
           alias stockplot=${PWD}/stockplot.sh
