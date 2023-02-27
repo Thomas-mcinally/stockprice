@@ -59,8 +59,6 @@ jobs:
         run: pipenv install
       - run: |
           shopt -s expand_aliases
+          alias stock=/home/runner/work/Stock-Price-CLI/Stock-Price-CLI/stock.sh
           ./install.sh
-          source ~/.bashrc
-          shopt -s expand_aliases
-          alias
           stock tsla,aapl
