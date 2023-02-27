@@ -61,4 +61,5 @@ jobs:
           shopt -s expand_aliases
           ./install.sh
           source ~/.bashrc
+          shopt -s expand_aliases
           stock tsla,aapl
