@@ -80,7 +80,7 @@ def main():
         ticker, period="1d", interval="30m", auto_adjust=True, progress=False
     )
 
-    fig = visualize_result(
+    fig = visualize_results(
         ticker,
         data_1day,
         data_90day,

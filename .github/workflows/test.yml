@@ -71,4 +71,3 @@ jobs:
           alias stock=${PWD}/stock.sh
           ./install.sh
           stockplot tsla
-          
