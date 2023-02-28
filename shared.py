@@ -22,37 +22,32 @@ def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
     )
 
     current_price = data_1day.iloc[-1, 3]
-    datetime_30_days_ago = datetime.datetime.now() - datetime.timedelta(days=30)
-    datetime_7_days_ago = datetime.datetime.now() - datetime.timedelta(days=7)
-
-    finding_trading_day_data_30 = True
-    while finding_trading_day_data_30:
-        try:
-            date_30_days_ago = datetime_30_days_ago.strftime("%Y-%m-%d")
-            change_30day = (
-                (current_price - data_90day.loc[date_30_days_ago, "Close"])
-                / data_90day.loc[date_30_days_ago, "Close"]
-                * 100
-            )
-            finding_trading_day_data_30 = False
-        except KeyError:
-            # no data because this day was not a trading day
-            datetime_30_days_ago = datetime_30_days_ago - datetime.timedelta(days=1)
-
-    finding_trading_day_data_7 = True
-    while finding_trading_day_data_7:
-        try:
-            date_7_days_ago = datetime_7_days_ago.strftime("%Y-%m-%d")
-            change_7day = (
-                (current_price - data_90day.loc[date_7_days_ago, "Close"])
-                / data_90day.loc[date_7_days_ago, "Close"]
-                * 100
-            )
-            finding_trading_day_data_7 = False
-        except KeyError:
-            # no data because this day was not a trading day
-            datetime_7_days_ago = datetime_7_days_ago - datetime.timedelta(days=1)
-
+    change_30day = calculate_price_percentage_change_over_n_days(
+        30, current_price, data_90day
+    )
+    change_7day = calculate_price_percentage_change_over_n_days(
+        7, current_price, data_90day
+    )
     change_1day = (current_price - data_1day.iloc[0, 0]) / data_1day.iloc[0, 0] * 100
 
     return current_price, change_1day, change_7day, change_30day
+
+
+def calculate_price_percentage_change_over_n_days(
+    n: int, current_price: float, data_90day: pd.DataFrame
+) -> float:
+    datetime_n_days_ago = datetime.datetime.now() - datetime.timedelta(days=n)
+    finding_trading_day_data_n = True
+    while finding_trading_day_data_n:
+        try:
+            date_n_days_ago = datetime_n_days_ago.strftime("%Y-%m-%d")
+            change_nday = (
+                (current_price - data_90day.loc[date_n_days_ago, "Close"])
+                / data_90day.loc[date_n_days_ago, "Close"]
+                * 100
+            )
+            finding_trading_day_data_n = False
+        except KeyError:
+            # no data because this day was not a trading day
+            datetime_n_days_ago = datetime_n_days_ago - datetime.timedelta(days=1)
+    return change_nday
