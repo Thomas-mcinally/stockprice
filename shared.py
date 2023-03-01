@@ -44,8 +44,8 @@ def calculate_price_percentage_change_over_n_days(
     n: int, current_price: float, data_90day: pd.DataFrame
 ) -> float:
     datetime_n_days_ago = datetime.datetime.now() - datetime.timedelta(days=n)
-    finding_trading_day_data_n = True
-    while finding_trading_day_data_n:
+    processing = True
+    while processing:
         try:
             date_n_days_ago = datetime_n_days_ago.strftime("%Y-%m-%d")
             change_nday = (
@@ -53,7 +53,7 @@ def calculate_price_percentage_change_over_n_days(
                 / data_90day.loc[date_n_days_ago, "Close"]
                 * 100
             )
-            finding_trading_day_data_n = False
+            processing = False
         except KeyError:
             # no data because this day was not a trading day
             datetime_n_days_ago = datetime_n_days_ago - datetime.timedelta(days=1)
