@@ -1,4 +1,5 @@
 import responses
+import freezegun
 from tests.conftest import (
     example_yahoo_api_response_1day_tsla,
     example_yahoo_api_response_90day_tsla,
@@ -6,6 +7,7 @@ from tests.conftest import (
 from shared import calculate_price_movement
 
 
+@freezegun.freeze_time("2023-02-26")
 def test_calculate_price_movement(mocked_responses):
     mocked_responses.get(
         "https://query2.finance.yahoo.com/v8/finance/chart/TSLA",
