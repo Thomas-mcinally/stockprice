@@ -10,9 +10,9 @@ def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
 
     Returns:
         current_price (float): Current price
-        change_1day (float): Percentage price change during last trading day
-        change_7day (float): Percentage price change since last trading day >=7days ago
-        change_30day (float): Percentage price change since last trading day >=30days ago
+        percentage_change_1day (float): Price change during last trading day
+        percentage_change_7day (float): Price change since last trading day >=7days ago
+        percentage_change_30day (float): Price change since last trading day >=30days ago
     """
     data_90day: pd.DataFrame = yfinance.download(
         ticker, period="90d", interval="1d", auto_adjust=True, progress=False
@@ -22,15 +22,22 @@ def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
     )
 
     current_price = data_1day.iloc[-1, 3]
-    change_30day = calculate_price_percentage_change_over_n_days(
+    percentage_change_30day = calculate_price_percentage_change_over_n_days(
         30, current_price, data_90day
     )
-    change_7day = calculate_price_percentage_change_over_n_days(
+    percentage_change_7day = calculate_price_percentage_change_over_n_days(
         7, current_price, data_90day
     )
-    change_1day = (current_price - data_1day.iloc[0, 0]) / data_1day.iloc[0, 0] * 100
+    percentage_change_1day = (
+        (current_price - data_1day.iloc[0, 0]) / data_1day.iloc[0, 0] * 100
+    )
 
-    return current_price, change_1day, change_7day, change_30day
+    return (
+        current_price,
+        percentage_change_1day,
+        percentage_change_7day,
+        percentage_change_30day,
+    )
 
 
 def calculate_price_percentage_change_over_n_days(
