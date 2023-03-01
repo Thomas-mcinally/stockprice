@@ -32,4 +32,4 @@ Before running the commands below, make sure `pipenv` is installed
 2. `pipenv install` in this directory
 3. `./install.sh` in this directory
 
-The commands `stock` and `stockplot` are noe available globally
+The commands `stock` and `stockplot` are now available globally
