@@ -1,16 +1,18 @@
 import argparse
+import sys
 
 from shared import calculate_price_movement
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "-stocks", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
+)  # const is default argument
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-stocks", nargs="?", const="TSLA,AMZN,SNAP,COIN,BTC-USD"
-    )  # const is default argument
-    args = parser.parse_args()
 
-    stocks = args.stocks.upper().split(",")
+def main(args: list = sys.argv[1:]):
+    parsed_args = parser.parse_args(args)
+
+    stocks = parsed_args.stocks.upper().split(",")
 
     for ticker in stocks:
         (
