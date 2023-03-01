@@ -1,4 +1,3 @@
-import responses
 import freezegun
 from tests.conftest import (
     example_yahoo_api_response_90day_aapl_2023_03_01,
@@ -10,36 +9,16 @@ import stock
 
 
 @freezegun.freeze_time("2023-03-01")
-def test_stock_with_one_ticker(capsys, mocked_responses):
-    mocked_responses.get(
-        "https://query2.finance.yahoo.com/v8/finance/chart/AAPL",
-        match=[
-            responses.matchers.query_param_matcher(
-                {
-                    "range": "90d",
-                    "interval": "1d",
-                    "includePrePost": False,
-                    "events": "div,splits,capitalGains",
-                }
-            )
-        ],
-        status=200,
-        json=example_yahoo_api_response_90day_aapl_2023_03_01,
+def test_stock_with_one_ticker(
+    capsys,
+    mock_GET_yahoo_v8_finance_chart_api_1day_range,
+    mock_GET_yahoo_v8_finance_chart_api_90day_range,
+):
+    mock_GET_yahoo_v8_finance_chart_api_90day_range(
+        "AAPL", example_yahoo_api_response_90day_aapl_2023_03_01
     )
-    mocked_responses.get(
-        "https://query2.finance.yahoo.com/v8/finance/chart/AAPL",
-        match=[
-            responses.matchers.query_param_matcher(
-                {
-                    "range": "1d",
-                    "interval": "1m",
-                    "includePrePost": False,
-                    "events": "div,splits,capitalGains",
-                }
-            )
-        ],
-        status=200,
-        json=example_yahoo_api_response_1day_aapl_2023_03_01,
+    mock_GET_yahoo_v8_finance_chart_api_1day_range(
+        "AAPL", example_yahoo_api_response_1day_aapl_2023_03_01
     )
 
     stock.main(["-stocks", "aapl"])
@@ -52,66 +31,23 @@ def test_stock_with_one_ticker(capsys, mocked_responses):
 
 
 @freezegun.freeze_time("2023-03-01")
-def test_stock_with_two_tickers(capsys, mocked_responses):
-    mocked_responses.get(
-        "https://query2.finance.yahoo.com/v8/finance/chart/AAPL",
-        match=[
-            responses.matchers.query_param_matcher(
-                {
-                    "range": "90d",
-                    "interval": "1d",
-                    "includePrePost": False,
-                    "events": "div,splits,capitalGains",
-                }
-            )
-        ],
-        status=200,
-        json=example_yahoo_api_response_90day_aapl_2023_03_01,
+def test_stock_with_two_tickers(
+    capsys,
+    mock_GET_yahoo_v8_finance_chart_api_1day_range,
+    mock_GET_yahoo_v8_finance_chart_api_90day_range,
+):
+    mock_GET_yahoo_v8_finance_chart_api_90day_range
+    mock_GET_yahoo_v8_finance_chart_api_90day_range(
+        "AAPL", example_yahoo_api_response_90day_aapl_2023_03_01
     )
-    mocked_responses.get(
-        "https://query2.finance.yahoo.com/v8/finance/chart/AAPL",
-        match=[
-            responses.matchers.query_param_matcher(
-                {
-                    "range": "1d",
-                    "interval": "1m",
-                    "includePrePost": False,
-                    "events": "div,splits,capitalGains",
-                }
-            )
-        ],
-        status=200,
-        json=example_yahoo_api_response_1day_aapl_2023_03_01,
+    mock_GET_yahoo_v8_finance_chart_api_1day_range(
+        "AAPL", example_yahoo_api_response_1day_aapl_2023_03_01
     )
-    mocked_responses.get(
-        "https://query2.finance.yahoo.com/v8/finance/chart/TSLA",
-        match=[
-            responses.matchers.query_param_matcher(
-                {
-                    "range": "90d",
-                    "interval": "1d",
-                    "includePrePost": False,
-                    "events": "div,splits,capitalGains",
-                }
-            )
-        ],
-        status=200,
-        json=example_yahoo_api_response_90day_tsla_2023_03_01,
+    mock_GET_yahoo_v8_finance_chart_api_90day_range(
+        "TSLA", example_yahoo_api_response_90day_tsla_2023_03_01
     )
-    mocked_responses.get(
-        "https://query2.finance.yahoo.com/v8/finance/chart/TSLA",
-        match=[
-            responses.matchers.query_param_matcher(
-                {
-                    "range": "1d",
-                    "interval": "1m",
-                    "includePrePost": False,
-                    "events": "div,splits,capitalGains",
-                }
-            )
-        ],
-        status=200,
-        json=example_yahoo_api_response_1day_tsla_2023_03_01,
+    mock_GET_yahoo_v8_finance_chart_api_1day_range(
+        "TSLA", example_yahoo_api_response_1day_tsla_2023_03_01
     )
 
     stock.main(["-stocks", "aapl,tsla"])
