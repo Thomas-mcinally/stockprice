@@ -22,14 +22,14 @@ def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
     )
 
     current_price = data_1day.iloc[-1, 3]
-    percentage_change_30day = calculate_price_percentage_change_over_n_days(
+    percentage_change_30day = calculate_percentage_price_change_over_n_days(
         30, current_price, data_90day
     )
-    percentage_change_7day = calculate_price_percentage_change_over_n_days(
+    percentage_change_7day = calculate_percentage_price_change_over_n_days(
         7, current_price, data_90day
     )
-    percentage_change_1day = (
-        (current_price - data_1day.iloc[0, 0]) / data_1day.iloc[0, 0] * 100
+    percentage_change_1day = calculate_percentage_price_change_1_day(
+        data_1day, current_price
     )
 
     return (
@@ -40,7 +40,12 @@ def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
     )
 
 
-def calculate_price_percentage_change_over_n_days(
+def calculate_percentage_price_change_1_day(data_1day, current_price):
+    price_at_start_of_day = data_1day.iloc[0, 0]
+    return (current_price - price_at_start_of_day) / price_at_start_of_day * 100
+
+
+def calculate_percentage_price_change_over_n_days(
     n: int, current_price: float, data_90day: pd.DataFrame
 ) -> float:
     datetime_n_days_ago = datetime.datetime.now() - datetime.timedelta(days=n)
@@ -48,11 +53,8 @@ def calculate_price_percentage_change_over_n_days(
     while processing:
         try:
             date_n_days_ago = datetime_n_days_ago.strftime("%Y-%m-%d")
-            change_nday = (
-                (current_price - data_90day.loc[date_n_days_ago, "Close"])
-                / data_90day.loc[date_n_days_ago, "Close"]
-                * 100
-            )
+            price_n_days_ago = data_90day.loc[date_n_days_ago, "Close"]
+            change_nday = (current_price - price_n_days_ago) / price_n_days_ago * 100
             processing = False
         except KeyError:
             # no data because this day was not a trading day
