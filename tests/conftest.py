@@ -8,6 +8,50 @@ def mocked_responses():
         yield rsps
 
 
+@pytest.fixture
+def mock_GET_yahoo_v8_finance_chart_api_90day_range(mocked_responses):
+    def _mock_GET_yahoo_v8_finance_chart_api_90day_range(ticker, json_response):
+        mocked_responses.get(
+            f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}",
+            match=[
+                responses.matchers.query_param_matcher(
+                    {
+                        "range": "90d",
+                        "interval": "1d",
+                        "includePrePost": False,
+                        "events": "div,splits,capitalGains",
+                    }
+                )
+            ],
+            status=200,
+            json=json_response,
+        )
+
+    return _mock_GET_yahoo_v8_finance_chart_api_90day_range
+
+
+@pytest.fixture
+def mock_GET_yahoo_v8_finance_chart_api_1day_range(mocked_responses):
+    def _mock_GET_yahoo_v8_finance_chart_api_1day_range(ticker, json_response):
+        mocked_responses.get(
+            f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}",
+            match=[
+                responses.matchers.query_param_matcher(
+                    {
+                        "range": "1d",
+                        "interval": "1m",
+                        "includePrePost": False,
+                        "events": "div,splits,capitalGains",
+                    }
+                )
+            ],
+            status=200,
+            json=json_response,
+        )
+
+    return _mock_GET_yahoo_v8_finance_chart_api_1day_range
+
+
 example_yahoo_api_response_90day_tsla_2023_02_26 = {
     "chart": {
         "result": [
