@@ -15,18 +15,12 @@ def main():
     for ticker in stocks:
         (
             current_price,
-            change_1day,
-            change_7day,
-            change_30day,
+            percentage_change_1day,
+            percentage_change_7day,
+            percentage_change_30day,
         ) = calculate_price_movement(ticker)
 
-        summary = (
-            ticker
-            + f" -- Current price: {current_price:.2f} -- "
-            + f"Daily change: {change_1day:.2f}%"
-            + f", 7-day change: {change_7day:.2f}%"
-            + f", 30-day change: {change_30day:.2f}%"
-        )
+        summary = f"{ticker} -- Current price: {current_price:.2f} -- Daily change: {percentage_change_1day:.2f}%, 7-day change: {percentage_change_7day:.2f}%, 30-day change: {percentage_change_30day:.2f}%"
 
         print(summary)
 

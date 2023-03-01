@@ -69,9 +69,12 @@ def main():
     ticker = args.ticker
     ticker = ticker.upper()
 
-    current_price, change_1day, change_7day, change_30day = calculate_price_movement(
-        ticker
-    )
+    (
+        current_price,
+        percentage_change_1day,
+        percentage_change_7day,
+        percentage_change_30day,
+    ) = calculate_price_movement(ticker)
 
     data_90day = yf.download(
         ticker, period="90d", interval="1d", auto_adjust=True, progress=False
@@ -85,9 +88,9 @@ def main():
         data_1day,
         data_90day,
         current_price,
-        change_1day,
-        change_7day,
-        change_30day,
+        percentage_change_1day,
+        percentage_change_7day,
+        percentage_change_30day,
     )
     show()
 
