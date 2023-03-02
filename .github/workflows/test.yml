@@ -58,7 +58,7 @@ jobs:
         run: |
           shopt -s expand_aliases
           alias stock=${PWD}/stock.sh
-          stock tsla,aapl
+          stockprice tsla,aapl
       - name: smoke test stockplot
       # https://github.com/actions/toolkit/issues/766
         run: |
