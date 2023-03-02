@@ -9,7 +9,7 @@ import stockprice
 
 
 @freezegun.freeze_time("2023-03-01")
-def test_stock_with_one_ticker(
+def test_stockprice_with_one_ticker(
     capsys,
     mock_GET_yahoo_v8_finance_chart_api_1day_range,
     mock_GET_yahoo_v8_finance_chart_api_90day_range,
@@ -31,7 +31,7 @@ def test_stock_with_one_ticker(
 
 
 @freezegun.freeze_time("2023-03-01")
-def test_stock_with_two_tickers(
+def test_stockprice_with_two_tickers(
     capsys,
     mock_GET_yahoo_v8_finance_chart_api_1day_range,
     mock_GET_yahoo_v8_finance_chart_api_90day_range,
