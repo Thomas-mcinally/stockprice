@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo  >> ~/`[[ $SHELL == *"zsh" ]] && echo '.zshrc' || echo '.bashrc'`
 
 echo "creating alias stockplot=${PWD}/stockplot.sh"
 echo "alias stockplot=${PWD}/stockplot.sh" >> ~/`[[ $SHELL == *"zsh" ]] && echo '.zshrc' || echo '.bashrc'`
