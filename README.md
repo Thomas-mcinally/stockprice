@@ -20,11 +20,11 @@ A set of terminal tools for personal finance
 
 **Input:** One-line command in terminal  (stockprice LIST,OF,TICKERS)
 
-![](images/input_stock.png)
+![](images/input_stockprice.png)
 
 **Output:** Returns daily change, 7-day change and 30-day change for all tickers
 
-![](images/output_stock.png)
+![](images/output_stockprice.png)
 
 ## Steps to setup 
 Before running the commands below, make sure `pipenv` is installed
