@@ -5,7 +5,7 @@ A set of terminal tools for personal finance
 - Works for terminals running unix shells (e.g. Bash, Zsh)
 
 
-# Stockplot.py
+# Stockplot
 
 **Input:** One-line command in terminal (stockplot TICKER)
 
@@ -16,15 +16,15 @@ A set of terminal tools for personal finance
 ![](images/output_stockplot.png)
 
 
-# Stock.py
+# Stockprice
 
-**Input:** One-line command in terminal  (stock LIST,OF,TICKERS)
+**Input:** One-line command in terminal  (stockprice LIST,OF,TICKERS)
 
-![](images/input_stock.png)
+![](images/input_stockprice.png)
 
 **Output:** Returns daily change, 7-day change and 30-day change for all tickers
 
-![](images/output_stock.png)
+![](images/output_stockprice.png)
 
 ## Steps to setup 
 Before running the commands below, make sure `pipenv` is installed
@@ -32,4 +32,4 @@ Before running the commands below, make sure `pipenv` is installed
 2. `pipenv install` in this directory
 3. `./install.sh` in this directory
 
-The commands `stock` and `stockplot` are now available globally
+The commands `stockprice` and `stockplot` are now available globally
