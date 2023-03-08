@@ -1,21 +1,3 @@
-A set of terminal tools for personal finance
-
-- The tools utilize the Yahoo Finance API
-- Work for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD) 
-- Works for terminals running unix shells (e.g. Bash, Zsh)
-
-
-# Stockplot
-
-**Input:** One-line command in terminal (stockplot TICKER)
-
-![](images/input_stockplot.png)
-
-**Output:** Pop-out matplotlib window with historic price movement and trading volumes for that ticker
-
-![](images/output_stockplot.png)
-
-
 # Stockprice
 
 **Input:** One-line command in terminal  (stockprice LIST,OF,TICKERS)
@@ -26,10 +8,13 @@ A set of terminal tools for personal finance
 
 ![](images/output_stockprice.png)
 
-## Steps to setup 
-Before running the commands below, make sure `pipenv` is installed
-1. Clone this repository
-2. `pipenv install` in this directory
-3. `./install.sh` in this directory
+## Installation
+Using [pipx](https://pypa.github.io/pipx/)
+```
+pipx install stockprice
+```
 
-The commands `stockprice` and `stockplot` are now available globally
+Alternatively, using pip (or pip3):
+```
+pip install stockprice
+```
