@@ -1,15 +1,11 @@
-import argparse
 import sys
 
-from shared import calculate_price_movement
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-stocks")
+from stockprice.shared import calculate_price_movement
 
 
-def main(args: list = sys.argv[1:]):
-    parsed_args = parser.parse_args(args)
-    stocks = parsed_args.stocks.upper().split(",")
+def main(args: list = sys.argv):
+    raw_input = args[1]
+    stocks = raw_input.upper().split(",")
 
     for ticker in stocks:
         (

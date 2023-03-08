@@ -5,7 +5,7 @@ from tests.conftest import (
     example_yahoo_api_response_90day_tsla_2023_03_01,
     example_yahoo_api_response_1day_tsla_2023_03_01,
 )
-import stockprice
+from stockprice.main import main
 
 
 @freezegun.freeze_time("2023-03-01")
@@ -21,7 +21,7 @@ def test_stockprice_with_one_ticker(
         "AAPL", example_yahoo_api_response_1day_aapl_2023_03_01
     )
 
-    stockprice.main(["-stocks", "aapl"])
+    main(["stockprice", "aapl"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -50,7 +50,7 @@ def test_stockprice_with_two_tickers(
         "TSLA", example_yahoo_api_response_1day_tsla_2023_03_01
     )
 
-    stockprice.main(["-stocks", "aapl,tsla"])
+    main(["stockprice", "aapl,tsla"])
 
     stdout = capsys.readouterr().out
     assert (
