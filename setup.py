@@ -8,6 +8,7 @@ setup(
     author="Thomas Mcinally",
     url="https://github.com/Thomas-mcinally/stockprice",
     long_description_content_type="text/markdown",
+    python_requires=">=3.7",
     install_requires=[
         "appdirs==1.4.4",
         "beautifulsoup4==4.11.2; python_full_version >= '3.6.0'",
@@ -32,6 +33,6 @@ setup(
         "webencodings==0.5.1",
         "yfinance==0.2.12",
     ],
-    version="1.0.3",
+    version="1.0.4",
     entry_points={"console_scripts": ["stockprice = stockprice.main:main"]},
 )
