@@ -1,4 +1,4 @@
-# Stockprice
+# stockprice
 
 **Input:** One-line command in terminal  (stockprice LIST,OF,TICKERS)
 
