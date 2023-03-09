@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance
 from typing import Tuple
 
+
 def calculate_percentage_price_change(current_price, start_price):
     return (current_price - start_price) / start_price * 100
 
