@@ -1,5 +1,8 @@
 # stockprice
 
+CLI tool to check historic price movement of stock tickers
+- Work for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD)
+
 **Input:** One-line command in terminal  (stockprice LIST,OF,TICKERS)
 
 ![](images/input_stockprice.png)
