@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="stockprice",
+    name="stockprice-cli",
     packages=find_packages(exclude=["tests"]),
     email="thomasmcinally@hotmail.com",
     author="Thomas Mcinally",

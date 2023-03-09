@@ -11,10 +11,10 @@
 ## Installation
 Using [pipx](https://pypa.github.io/pipx/)
 ```
-pipx install stockprice
+pipx install stockprice-cli
 ```
 
 Alternatively, using pip (or pip3):
 ```
-pip install stockprice
+pip install stockprice-cli
 ```
