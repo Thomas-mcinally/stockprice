@@ -1,6 +1,7 @@
 import datetime
 import pandas as pd
 import yfinance
+from typing import Tuple
 
 
 def calculate_percentage_price_change(current_price, start_price):
@@ -31,7 +32,7 @@ def calculate_percentage_price_change_over_n_days(
     return change_nday
 
 
-def calculate_price_movement(ticker: str) -> tuple[float, float, float]:
+def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
     """
     Parameters:
         ticker (str): Ticker of asset to investigate
