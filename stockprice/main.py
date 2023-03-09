@@ -1,6 +1,6 @@
 import sys
 
-from stockprice.shared import calculate_price_movement
+from stockprice.calculate_price_movement import calculate_price_movement
 
 
 def main(args: list = sys.argv):

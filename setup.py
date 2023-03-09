@@ -33,6 +33,6 @@ setup(
         "webencodings==0.5.1",
         "yfinance==0.2.12",
     ],
-    version="1.0.4",
+    version="1.0.5",
     entry_points={"console_scripts": ["stockprice = stockprice.main:main"]},
 )
