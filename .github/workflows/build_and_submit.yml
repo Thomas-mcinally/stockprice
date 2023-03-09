@@ -8,8 +8,11 @@ on:
     - 'stockprice/**'
     - 'setup.py'
 
+permissions:
+  contents: write
+  
 jobs:
-  submit:
+  build_and_submit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,3 +23,26 @@ jobs:
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           pip: wheel -w dist/ --no-deps .
+
+  release:
+    needs: build_and_submit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Grab version from setup.py
+        run: |
+          # Grab the version of the app
+          version=$(python setup.py --version)
+          echo "Releasing for version $version"
+          echo "RELEASE_VERSION=$version" >> $GITHUB_ENV
+      - name: Set github repo tag
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release v${{ env.RELEASE_VERSION }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
