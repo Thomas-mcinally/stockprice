@@ -36,7 +36,6 @@ def test_stockprice_with_two_tickers(
     mock_GET_yahoo_v8_finance_chart_api_1day_range,
     mock_GET_yahoo_v8_finance_chart_api_90day_range,
 ):
-    mock_GET_yahoo_v8_finance_chart_api_90day_range
     mock_GET_yahoo_v8_finance_chart_api_90day_range(
         "AAPL", example_yahoo_api_response_90day_aapl_2023_03_01
     )
