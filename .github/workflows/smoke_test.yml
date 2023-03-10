@@ -3,7 +3,7 @@ name: Build and submit to PyPi
 on:
   schedule:
     # Runs at 00:00 on 11th day of every month
-    - cron: "0 0 11 * *"
+    - cron: '0 0 11 * *'
 
   
 jobs:
