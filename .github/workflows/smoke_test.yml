@@ -1,4 +1,4 @@
-name: Build and submit to PyPi
+name: Scheduled smoke test
 
 on:
   schedule:
