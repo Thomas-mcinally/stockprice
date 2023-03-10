@@ -1,0 +1,14 @@
+name: Scheduled smoke test
+
+on:
+  schedule:
+    # Runs at 00:00 on 11th day of every month
+    - cron: '0 0 11 * *'
+
+  
+jobs:
+  smoke_test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: pipx install stockprice-cli
+      - run: stockprice tsla
