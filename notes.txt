@@ -1,0 +1,1 @@
+Set user-agent to avoid 403 errors - https://stackoverflow.com/questions/68657671/yahoo-finance-api-gives-error-403-forbidden-on-old-url-and-user-agent
