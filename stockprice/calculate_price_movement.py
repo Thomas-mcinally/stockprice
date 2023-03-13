@@ -62,4 +62,5 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
 
 # todo:
 # Does this work for different time zones?
+# Need to ensure time zone used by datetime is the same as is used by timestamps from request
 # Can we optimize search through timestamps array? Maybe with binary search?

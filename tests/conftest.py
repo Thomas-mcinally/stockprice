@@ -190,10 +190,7 @@ example_yahoo_api_response_30day_btc_usd_2023_03_13 = {
     "chart": {
         "result": [
             {
-                "meta": {
-                    "currency": "USD",
-                    "symbol": "BTC-USD",
-                },
+                "meta": {"currency": "USD", "symbol": "BTC-USD"},
                 "timestamp": [
                     1676160000,
                     1676246400,
@@ -260,11 +257,11 @@ example_yahoo_api_response_30day_btc_usd_2023_03_13 = {
                                 20632.41015625,
                                 22163.94921875,
                                 24295.919921875,
-                            ],
+                            ]
                         }
-                    ],
-                    },
+                    ]
+                },
             }
-        ],
+        ]
     }
 }
