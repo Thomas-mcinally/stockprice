@@ -1,6 +1,7 @@
 import sys
 
 from stockprice.calculate_price_movement import calculate_price_movement
+from stockprice.errors import TimeZoneError
 
 
 def main(args: list = sys.argv):
@@ -15,7 +16,7 @@ def main(args: list = sys.argv):
                 percentage_change_7day,
                 percentage_change_30day,
             ) = calculate_price_movement(ticker)
-        except:
+        except TimeZoneError:
             print(f"Something went wrong when processing {ticker} - Time zone error")
             return
 

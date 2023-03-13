@@ -2,6 +2,8 @@ import datetime
 from typing import List, Tuple
 import requests
 
+from stockprice.errors import TimeZoneError
+
 
 def calculate_percentage_price_change_over_n_days(
     n: int, timestamps: List[int], closing_prices: List[int]
@@ -37,7 +39,7 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
         headers={"User-Agent": "Mozilla/5.0"},
     ).json()
     if response_body["chart"]["result"][0]["meta"]["timezone"] != "UTC":
-        raise
+        raise TimeZoneError
 
     closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0][
         "close"
