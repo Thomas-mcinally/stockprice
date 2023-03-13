@@ -8,7 +8,7 @@ def calculate_percentage_price_change_over_n_days(
 ) -> float:
     date_n_days_ago = (datetime.datetime.now() - datetime.timedelta(days=n)).date()
 
-    index_of_price = None
+    index_of_price = 0
     for index in range(len(timestamps)):
         # timestamps ordered from oldest to newest
         past_date = datetime.datetime.fromtimestamp(timestamps[index]).date()
