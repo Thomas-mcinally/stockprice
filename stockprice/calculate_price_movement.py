@@ -58,3 +58,8 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
         percentage_change_7day,
         percentage_change_30day,
     )
+
+
+# todo:
+# Does this work for different time zones?
+# Can we optimize search through timestamps array? Maybe with binary search?

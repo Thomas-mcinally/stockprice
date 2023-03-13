@@ -25,6 +25,7 @@ def mock_GET_yahoo_v8_finance_chart_api_30day_range(mocked_responses):
 
     return _mock_GET_yahoo_v8_finance_chart_api_30day_range
 
+
 example_yahoo_api_response_30day_tsla_2023_03_13 = {
     "chart": {
         "result": [
@@ -155,7 +156,7 @@ example_yahoo_api_response_30day_aapl_2023_03_13 = {
                                 154.64999389648438,
                                 151.9199981689453,
                                 150.8699951171875,
-                                151.00999450683594, # fri 10th feb, "30 days ago"
+                                151.00999450683594,  # fri 10th feb, "30 days ago"
                                 153.85000610351562,
                                 153.1999969482422,
                                 155.3300018310547,
@@ -170,12 +171,12 @@ example_yahoo_api_response_30day_aapl_2023_03_13 = {
                                 145.30999755859375,
                                 145.91000366210938,
                                 151.02999877929688,
-                                153.8300018310547, # mon 6th mar, "7 days ago"
+                                153.8300018310547,  # mon 6th mar, "7 days ago"
                                 151.60000610351562,
                                 152.8699951171875,
                                 150.58999633789062,
                                 148.5,
-                                150.47000122070312, # current price
+                                150.47000122070312,  # current price
                             ]
                         }
                     ]

@@ -1,5 +1,8 @@
 import freezegun
-from tests.conftest import example_yahoo_api_response_30day_tsla_2023_03_13,example_yahoo_api_response_30day_aapl_2023_03_13
+from tests.conftest import (
+    example_yahoo_api_response_30day_tsla_2023_03_13,
+    example_yahoo_api_response_30day_aapl_2023_03_13,
+)
 from stockprice.main import main
 
 
@@ -18,6 +21,7 @@ def test_stockprice_with_one_ticker(
         stdout
         == "TSLA -- Current price: 174.95 -- Daily change: 0.87%, 7-day change: -9.73%, 30-day change: -11.14%\n"
     )
+
 
 @freezegun.freeze_time("2023-03-13")
 def test_stockprice_with_two_tickers(
