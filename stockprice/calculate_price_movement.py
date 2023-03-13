@@ -2,7 +2,10 @@ import datetime
 from typing import List, Tuple
 import requests
 
-def new_calculate_percentage_price_change_over_n_days(n, timestamps:List[int], closing_prices: List[int]):
+
+def new_calculate_percentage_price_change_over_n_days(
+    n, timestamps: List[int], closing_prices: List[int]
+):
     date_n_days_ago = (datetime.datetime.now() - datetime.timedelta(days=n)).date()
 
     index_of_price = None
@@ -15,7 +18,7 @@ def new_calculate_percentage_price_change_over_n_days(n, timestamps:List[int], c
 
     price_n_days_ago = closing_prices[index_of_price]
     current_price = closing_prices[-1]
-    return 100 * (current_price - price_n_days_ago) / price_n_days_ago 
+    return 100 * (current_price - price_n_days_ago) / price_n_days_ago
 
 
 def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
@@ -33,12 +36,25 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
         f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=30d",
         headers={"User-Agent": "Mozilla/5.0"},
     ).json()
-    closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0]["close"]
+    closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0][
+        "close"
+    ]
     timestamps = response_body["chart"]["result"][0]["timestamp"]
 
     current_price = closing_prices[-1]
-    percentage_change_30day = new_calculate_percentage_price_change_over_n_days(30, timestamps,closing_prices)
-    percentage_change_7day = new_calculate_percentage_price_change_over_n_days(7, timestamps,closing_prices)
-    percentage_change_1day = new_calculate_percentage_price_change_over_n_days(1, timestamps,closing_prices)
+    percentage_change_30day = new_calculate_percentage_price_change_over_n_days(
+        30, timestamps, closing_prices
+    )
+    percentage_change_7day = new_calculate_percentage_price_change_over_n_days(
+        7, timestamps, closing_prices
+    )
+    percentage_change_1day = new_calculate_percentage_price_change_over_n_days(
+        1, timestamps, closing_prices
+    )
 
-    return (current_price,percentage_change_1day,percentage_change_7day,percentage_change_30day)
+    return (
+        current_price,
+        percentage_change_1day,
+        percentage_change_7day,
+        percentage_change_30day,
+    )
