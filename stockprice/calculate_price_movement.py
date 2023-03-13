@@ -2,10 +2,6 @@ import datetime
 from typing import List, Tuple
 import requests
 
-
-# def calculate_percentage_price_change(current_price, start_price):
-#     return (current_price - start_price) / start_price * 100
-
 def new_calculate_percentage_price_change_over_n_days(n, timestamps:List[int], closing_prices: List[int]):
     datetime_n_days_ago = datetime.datetime.now() - datetime.timedelta(days=n)
     date_n_days_ago = datetime_n_days_ago.date()
