@@ -26,7 +26,7 @@ def test_stockprice_with_one_ticker(
 
 
 @freezegun.freeze_time("2023-03-13")
-def test_stockprice_non_utc_timezone_in_yahoo_response(
+def test_print_error_message_when_non_utc_timezone_in_yahoo_response(
     capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range
 ):
     mock_GET_yahoo_v8_finance_chart_api_30day_range(
