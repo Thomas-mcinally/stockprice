@@ -3,11 +3,11 @@ from typing import List, Tuple
 import requests
 
 def new_calculate_percentage_price_change_over_n_days(n, timestamps:List[int], closing_prices: List[int]):
-    datetime_n_days_ago = datetime.datetime.now() - datetime.timedelta(days=n)
-    date_n_days_ago = datetime_n_days_ago.date()
+    date_n_days_ago = (datetime.datetime.now() - datetime.timedelta(days=n)).date()
 
     index_of_price = None
     for index in range(len(timestamps)):
+        # timestamps ordered from oldest to newest
         past_date = datetime.datetime.fromtimestamp(timestamps[index]).date()
         if past_date > date_n_days_ago:
             break
@@ -29,15 +29,14 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
         percentage_change_7day (float): Price change since last trading day >=7days ago
         percentage_change_30day (float): Price change since last trading day >=30days ago
     """
-    response = requests.get(
+    response_body = requests.get(
         f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=30d",
         headers={"User-Agent": "Mozilla/5.0"},
-    )
-    closing_prices = response.json()["chart"]["result"][0]["indicators"]["quote"][0]["close"]
-    timestamps = response.json()["chart"]["result"][0]["timestamp"]
+    ).json()
+    closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0]["close"]
+    timestamps = response_body["chart"]["result"][0]["timestamp"]
+
     current_price = closing_prices[-1]
-
-
     percentage_change_30day = new_calculate_percentage_price_change_over_n_days(30, timestamps,closing_prices)
     percentage_change_7day = new_calculate_percentage_price_change_over_n_days(7, timestamps,closing_prices)
     percentage_change_1day = new_calculate_percentage_price_change_over_n_days(1, timestamps,closing_prices)
