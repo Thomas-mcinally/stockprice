@@ -26,11 +26,90 @@ def mock_GET_yahoo_v8_finance_chart_api_30day_range(mocked_responses):
     return _mock_GET_yahoo_v8_finance_chart_api_30day_range
 
 
+example_yahoo_api_response_30day_tsla_2023_03_13_not_utc = {
+    "chart": {
+        "result": [
+            {
+                "meta": {"currency": "USD", "symbol": "TSLA", "timezone": "PST"},
+                "timestamp": [
+                    1675089000,
+                    1675175400,
+                    1675261800,
+                    1675348200,
+                    1675434600,
+                    1675693800,
+                    1675780200,
+                    1675866600,
+                    1675953000,
+                    1676039400,  # fri 10th feb, "30 days ago"
+                    1676298600,
+                    1676385000,
+                    1676471400,
+                    1676557800,
+                    1676644200,
+                    1676989800,
+                    1677076200,
+                    1677162600,
+                    1677249000,
+                    1677508200,
+                    1677594600,
+                    1677681000,
+                    1677767400,
+                    1677853800,
+                    1678113000,  # mon 6th mar, "7 days ago"
+                    1678199400,
+                    1678285800,
+                    1678372200,
+                    1678458600,
+                    1678736998,  # mon 13th mar, "today"
+                ],
+                "indicators": {
+                    "quote": [
+                        {
+                            "close": [
+                                166.66000366210938,
+                                173.22000122070312,
+                                181.41000366210938,
+                                188.27000427246094,
+                                189.97999572753906,
+                                194.75999450683594,
+                                196.80999755859375,
+                                201.2899932861328,
+                                207.32000732421875,
+                                196.88999938964844,  # fri 10th feb, "30 days ago"
+                                194.63999938964844,
+                                209.25,
+                                214.24000549316406,
+                                202.0399932861328,
+                                208.30999755859375,
+                                197.3699951171875,
+                                200.86000061035156,
+                                202.07000732421875,
+                                196.8800048828125,
+                                207.6300048828125,
+                                205.7100067138672,
+                                202.77000427246094,
+                                190.89999389648438,
+                                197.7899932861328,
+                                193.80999755859375,  # mon 6th mar, "7 days ago"
+                                187.7100067138672,
+                                182.0,
+                                172.9199981689453,
+                                173.44000244140625,
+                                174.951904296875,  # mon 13th mar, "today"
+                            ]
+                        }
+                    ]
+                },
+            }
+        ]
+    }
+}
 example_yahoo_api_response_30day_tsla_2023_03_13 = {
     "chart": {
         "result": [
             {
-                "meta": {"currency": "USD", "symbol": "TSLA"},
+                "meta": {"currency": "USD", "symbol": "TSLA", "timezone": "UTC"},
                 "timestamp": [
                     1675089000,
                     1675175400,
@@ -110,7 +189,7 @@ example_yahoo_api_response_30day_aapl_2023_03_13 = {
     "chart": {
         "result": [
             {
-                "meta": {"currency": "USD", "symbol": "AAPL"},
+                "meta": {"currency": "USD", "symbol": "AAPL", "timezone": "UTC"},
                 "timestamp": [
                     1675089000,
                     1675175400,
@@ -190,7 +269,7 @@ example_yahoo_api_response_30day_btc_usd_2023_03_13 = {
     "chart": {
         "result": [
             {
-                "meta": {"currency": "USD", "symbol": "BTC-USD"},
+                "meta": {"currency": "USD", "symbol": "BTC-USD", "timezone": "UTC"},
                 "timestamp": [
                     1676160000,
                     1676246400,

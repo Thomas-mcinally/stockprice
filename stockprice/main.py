@@ -8,12 +8,16 @@ def main(args: list = sys.argv):
     stocks = raw_input.upper().split(",")
 
     for ticker in stocks:
-        (
-            current_price,
-            percentage_change_1day,
-            percentage_change_7day,
-            percentage_change_30day,
-        ) = calculate_price_movement(ticker)
+        try:
+            (
+                current_price,
+                percentage_change_1day,
+                percentage_change_7day,
+                percentage_change_30day,
+            ) = calculate_price_movement(ticker)
+        except:
+            print(f"Something went wrong when processing {ticker} - Time zone error")
+            return
 
         summary = f"{ticker} -- Current price: {current_price:.2f} -- Daily change: {percentage_change_1day:.2f}%, 7-day change: {percentage_change_7day:.2f}%, 30-day change: {percentage_change_30day:.2f}%"
 
