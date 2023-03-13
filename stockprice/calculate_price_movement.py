@@ -6,7 +6,7 @@ import requests
 def calculate_percentage_price_change_over_n_days(
     n: int, timestamps: List[int], closing_prices: List[int]
 ) -> float:
-    date_n_days_ago = (datetime.datetime.now() - datetime.timedelta(days=n)).date()
+    date_n_days_ago = (datetime.datetime.utcnow() - datetime.timedelta(days=n)).date()
 
     index_of_price = 0
     for index in range(len(timestamps)):
