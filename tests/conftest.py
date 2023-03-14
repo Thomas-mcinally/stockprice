@@ -186,11 +186,11 @@ example_yahoo_api_response_30day_aapl_2023_03_13 = {
     }
 }
 
-example_yahoo_api_response_30day_btc_usd_2023_03_13 = {
+example_yahoo_api_response_30day_btc_eur_2023_03_13 = {
     "chart": {
         "result": [
             {
-                "meta": {"currency": "USD", "symbol": "BTC-USD", "timezone": "UTC"},
+                "meta": {"currency": "EUR", "symbol": "BTC-EUR", "timezone": "UTC"},
                 "timestamp": [
                     1676160000,
                     1676246400,

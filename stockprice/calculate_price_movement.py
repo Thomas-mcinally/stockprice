@@ -28,6 +28,7 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
 
     Returns:
         current_price (float): Current price
+        currency (str): The currency of the price
         percentage_change_1day (float): Price change during last trading day
         percentage_change_7day (float): Price change since last trading day >=7days ago
         percentage_change_30day (float): Price change since last trading day >=30days ago
@@ -37,6 +38,7 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
         headers={"User-Agent": "Mozilla/5.0"},
     ).json()
 
+    currency = response_body["chart"]["result"][0]["meta"]["currency"]
     closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0][
         "close"
     ]
@@ -55,6 +57,7 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
 
     return (
         current_price,
+        currency,
         percentage_change_1day,
         percentage_change_7day,
         percentage_change_30day,
