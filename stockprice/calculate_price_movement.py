@@ -9,7 +9,7 @@ def calculate_percentage_price_change_over_n_days(
     date_n_days_ago = (datetime.utcnow() - timedelta(days=n)).date()
 
     index_of_trading_day = 0
-    # timestamps ordered
+    # timestamps ordered from earliest to latest
     while date.fromtimestamp(timestamps[index_of_trading_day + 1]) <= date_n_days_ago:
         index_of_trading_day += 1
 
