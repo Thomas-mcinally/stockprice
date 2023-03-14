@@ -10,7 +10,10 @@ def calculate_percentage_price_change_over_n_days(
 
     index_of_trading_day = 0
     # timestamps ordered from earliest to latest
-    while date.fromtimestamp(timestamps[index_of_trading_day + 1]) <= date_n_days_ago:
+    while (
+        index_of_trading_day + 2 < len(timestamps)
+        and date.fromtimestamp(timestamps[index_of_trading_day + 1]) <= date_n_days_ago
+    ):
         index_of_trading_day += 1
 
     price_on_last_trading_day_n_days_ago = closing_prices[index_of_trading_day]
@@ -40,7 +43,6 @@ def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
         f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=30d",
         headers={"User-Agent": "Mozilla/5.0"},
     ).json()
-
     currency = response_body["chart"]["result"][0]["meta"]["currency"]
     closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0][
         "close"
