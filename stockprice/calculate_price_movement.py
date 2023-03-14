@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date, timedelta
 from typing import List, Tuple
 import requests
 
@@ -6,19 +6,22 @@ import requests
 def calculate_percentage_price_change_over_n_days(
     n: int, timestamps: List[int], closing_prices: List[int]
 ) -> float:
-    date_n_days_ago = (datetime.datetime.utcnow() - datetime.timedelta(days=n)).date()
+    date_n_days_ago = (datetime.utcnow() - timedelta(days=n)).date()
 
-    index_of_price = 0
-    for index in range(len(timestamps)):
-        # timestamps ordered from oldest to newest
-        past_date = datetime.datetime.fromtimestamp(timestamps[index]).date()
-        if past_date > date_n_days_ago:
-            break
-        index_of_price = index
+    index_of_trading_day = 0
+    # timestamps ordered from earliest to latest
+    while date.fromtimestamp(timestamps[index_of_trading_day + 1]) <= date_n_days_ago:
+        index_of_trading_day += 1
 
-    price_n_days_ago = closing_prices[index_of_price]
+    price_on_last_trading_day_n_days_ago = closing_prices[index_of_trading_day]
     current_price = closing_prices[-1]
-    return 100 * (current_price - price_n_days_ago) / price_n_days_ago
+    percentage_price_change = (
+        100
+        * (current_price - price_on_last_trading_day_n_days_ago)
+        / price_on_last_trading_day_n_days_ago
+    )
+
+    return percentage_price_change
 
 
 def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
