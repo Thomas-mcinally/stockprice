@@ -27,7 +27,7 @@ def calculate_percentage_price_change_over_n_days(
     return percentage_price_change
 
 
-def calculate_price_movement(ticker: str) -> Tuple[float, float, float]:
+def calculate_price_movement(ticker: str) -> Tuple[float, str, float, float, float]:
     """
     Parameters:
         ticker (str): Ticker of asset to investigate

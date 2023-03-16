@@ -3,7 +3,7 @@ import sys
 from stockprice.calculate_price_movement import calculate_price_movement
 
 
-def main(args: list = sys.argv):
+def main(args: list = sys.argv) -> None:
     raw_input = args[1]
     stocks = raw_input.upper().split(",")
 
