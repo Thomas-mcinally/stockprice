@@ -1,15 +1,8 @@
 # stockprice
 
-CLI tool to check historic price movement of stock tickers
-- Work for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD)
+Works for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, AAPL, BTC-USD, ETH-USD)
+![render1679085887674](https://user-images.githubusercontent.com/95553476/226039291-a952a161-8e0b-424b-aba4-3fdfdf53e5c4.gif)
 
-**Input:** One-line command in terminal  (stockprice LIST,OF,TICKERS)
-
-![](images/input_stockprice.png)
-
-**Output:** Returns daily change, 7-day change and 30-day change for all tickers
-
-![](images/output_stockprice.png)
 
 ## Installation
 Using [pipx](https://pypa.github.io/pipx/)
