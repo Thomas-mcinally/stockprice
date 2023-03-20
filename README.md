@@ -1,7 +1,7 @@
 # stockprice
 
 Works for all tickers listed on Yahoo Finance, including cryptocurrency trading pairs (e.g. TSLA, BTC-USD)
-![render1679085887674](https://user-images.githubusercontent.com/95553476/226039291-a952a161-8e0b-424b-aba4-3fdfdf53e5c4.gif)
+![render1679340820713](https://user-images.githubusercontent.com/95553476/226446974-3a6a2124-a225-44f8-8f61-a8521a74b916.gif)
 
 
 ## Installation
