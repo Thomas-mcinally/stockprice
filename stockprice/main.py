@@ -4,9 +4,15 @@ from stockprice.calculate_price_movement import calculate_price_movement
 
 
 def main(args: list = sys.argv) -> None:
-    raw_input = args[1]
-    stocks = raw_input.upper().replace(" ", "").split(",")
+    raw_input = args[1:]
+    stocks = []
+    for input in raw_input:
+        input = input.upper().replace(" ", "")
+        if input[-1] == ",":
+            input = input[:-1]
 
+        inputs = input.split(",")
+        stocks.extend(inputs)
     for ticker in stocks:
         (
             current_price,
