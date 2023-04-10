@@ -5,7 +5,7 @@ from stockprice.calculate_price_movement import calculate_price_movement
 
 def main(args: list = sys.argv) -> None:
     raw_input = args[1]
-    stocks = raw_input.upper().split(",")
+    stocks = raw_input.upper().replace(" ", "").split(",")
 
     for ticker in stocks:
         (
