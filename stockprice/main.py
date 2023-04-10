@@ -7,7 +7,7 @@ def main(args: list = sys.argv) -> None:
     raw_input = args[1:]
     stocks = []
     for input in raw_input:
-        input = input.upper().replace(" ", "")
+        input = input.upper()
         if input[-1] == ",":
             input = input[:-1]
 
