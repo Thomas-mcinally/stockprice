@@ -1,4 +1,5 @@
 import freezegun
+import pytest
 from tests.conftest import (
     example_yahoo_api_response_30day_tsla_2023_03_13,
     example_yahoo_api_response_30day_aapl_2023_03_13,
@@ -99,9 +100,12 @@ def test_stockprice_input_with_whitespace(
     )
 
 
+@pytest.mark.parametrize(
+    "input_sys_argv", [["stockprice", "tsla,aapl,"], ["stockprice", "tsla,", "aapl,"]]
+)
 @freezegun.freeze_time("2023-03-13")
 def test_stockprice_trailing_comma(
-    capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range
+    capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range, input_sys_argv
 ):
     mock_GET_yahoo_v8_finance_chart_api_30day_range(
         "TSLA", example_yahoo_api_response_30day_tsla_2023_03_13
@@ -110,7 +114,7 @@ def test_stockprice_trailing_comma(
         "AAPL", example_yahoo_api_response_30day_aapl_2023_03_13
     )
 
-    main(["stockprice", "tsla,aapl,"])
+    main(input_sys_argv)
 
     stdout = capsys.readouterr().out
     assert (
