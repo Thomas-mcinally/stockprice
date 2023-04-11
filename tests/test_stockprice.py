@@ -81,7 +81,7 @@ def test_stockprice_with_two_tickers(
 
 
 @freezegun.freeze_time("2023-03-13")
-def test_stockprice_input_with_whitespace(
+def test_stockprice_with_whitespace(
     capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range
 ):
     mock_GET_yahoo_v8_finance_chart_api_30day_range(
