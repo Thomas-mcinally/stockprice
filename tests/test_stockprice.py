@@ -1,4 +1,5 @@
 import freezegun
+import pytest
 from tests.conftest import (
     example_yahoo_api_response_30day_tsla_2023_03_13,
     example_yahoo_api_response_30day_aapl_2023_03_13,
@@ -90,7 +91,30 @@ def test_stockprice_with_whitespace(
         "AAPL", example_yahoo_api_response_30day_aapl_2023_03_13
     )
 
-    main(["stockprice", "tsla, aapl"])
+    main(["stockprice", "tsla,", "aapl"])
+
+    stdout = capsys.readouterr().out
+    assert (
+        stdout
+        == "TSLA -- Current price: 174.95 USD -- Daily change: 0.87%, 7-day change: -9.73%, 30-day change: -11.14%\nAAPL -- Current price: 150.47 USD -- Daily change: 1.33%, 7-day change: -2.18%, 30-day change: -0.36%\n"
+    )
+
+
+@pytest.mark.parametrize(
+    "input_sys_argv", [["stockprice", "tsla,aapl,"], ["stockprice", "tsla,", "aapl,"]]
+)
+@freezegun.freeze_time("2023-03-13")
+def test_stockprice_trailing_comma(
+    capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range, input_sys_argv
+):
+    mock_GET_yahoo_v8_finance_chart_api_30day_range(
+        "TSLA", example_yahoo_api_response_30day_tsla_2023_03_13
+    )
+    mock_GET_yahoo_v8_finance_chart_api_30day_range(
+        "AAPL", example_yahoo_api_response_30day_aapl_2023_03_13
+    )
+
+    main(input_sys_argv)
 
     stdout = capsys.readouterr().out
     assert (
