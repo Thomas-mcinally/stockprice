@@ -10,7 +10,9 @@ def mocked_responses():
 
 @pytest.fixture
 def mock_GET_yahoo_v8_finance_chart_api_30day_range(mocked_responses):
-    def _mock_GET_yahoo_v8_finance_chart_api_30day_range(ticker, json_response):
+    def _mock_GET_yahoo_v8_finance_chart_api_30day_range(
+        ticker, json_response, status=200
+    ):
         mocked_responses.get(
             f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}",
             match=[
@@ -19,7 +21,7 @@ def mock_GET_yahoo_v8_finance_chart_api_30day_range(mocked_responses):
                 ),
                 responses.matchers.header_matcher({"User-Agent": "Mozilla/5.0"}),
             ],
-            status=200,
+            status=status,
             json=json_response,
         )
 
