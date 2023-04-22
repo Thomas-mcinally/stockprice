@@ -3,7 +3,7 @@ from stockprice.main import main
 from tests.conftest import example_yahoo_api_response_30day_tsla_2023_03_13
 
 
-def test_ticket_not_listed_on_yahoo_finance(
+def test_ticker_not_listed_on_yahoo_finance_one_ticker(
     capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range
 ):
     mock_GET_yahoo_v8_finance_chart_api_30day_range(
@@ -27,7 +27,7 @@ def test_ticket_not_listed_on_yahoo_finance(
 
 
 @freezegun.freeze_time("2023-03-13")
-def test_ticket_not_listed_on_yahoo_finance_two_tickers(
+def test_ticker_not_listed_on_yahoo_finance_multiple_tickers(
     capsys, mock_GET_yahoo_v8_finance_chart_api_30day_range
 ):
     mock_GET_yahoo_v8_finance_chart_api_30day_range(
