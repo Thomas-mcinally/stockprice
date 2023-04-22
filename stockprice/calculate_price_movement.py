@@ -39,10 +39,13 @@ def calculate_price_movement(ticker: str) -> Tuple[float, str, float, float, flo
         percentage_change_7day (float): Price change since last trading day >=7days ago
         percentage_change_30day (float): Price change since last trading day >=30days ago
     """
-    response_body = requests.get(
+    response = requests.get(
         f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=30d",
         headers={"User-Agent": "Mozilla/5.0"},
-    ).json()
+    )
+    if response.status_code == 404:
+        raise ValueError(f"The ticker symbol {ticker} is not listed on yahoo finance.")
+    response_body = response.json()
     currency = response_body["chart"]["result"][0]["meta"]["currency"]
     closing_prices = response_body["chart"]["result"][0]["indicators"]["quote"][0][
         "close"
