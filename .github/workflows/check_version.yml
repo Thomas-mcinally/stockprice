@@ -19,7 +19,9 @@ jobs:
     - name: Check version
       run: |
         PR_VERSION=$(git show HEAD:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
+        echo "PR_VERSION: $PR_VERSION"
         MAIN_VERSION=$(git show origin/main:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
+        echo "MAIN_VERSION: $MAIN_VERSION"
         if [ "$MAIN_VERSION" = "$PR_VERSION" ]; then
           echo "Error: PR uses the same version as the main branch"
           exit 1
