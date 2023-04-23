@@ -2,7 +2,9 @@ name: Check version on PR
 
 on:
   pull_request:
-
+    paths:
+      - 'stockprice/**'
+      - 'setup.py'
 jobs:
   check-version:
     runs-on: ubuntu-latest
