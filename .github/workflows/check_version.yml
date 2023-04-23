@@ -28,10 +28,12 @@ jobs:
     - name: Get version from main branch
       run: |
         MAIN_VERSION=$(git show origin/main:setup.py | grep -Eo "version='[0-9]+\.[0-9]+\.[0-9]+'" | cut -d "'" -f 2)
+        cat $MAIN_VERSION
 
     - name: Get version from pull request branch
       run: |
         PR_VERSION=$(git show HEAD:setup.py | grep -Eo "version='[0-9]+\.[0-9]+\.[0-9]+'" | cut -d "'" -f 2)
+        cat $PR_VERSION
 
     - name: Check version
       run: |
