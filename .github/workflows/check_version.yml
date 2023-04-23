@@ -1,0 +1,30 @@
+name: Check version on PR
+
+on:
+  pull_request:
+    paths:
+      - 'stockprice/**'
+      - 'setup.py'
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # Need to fetch all branches to compare with main
+
+    - name: Check versions
+      run: |
+        PR_VERSION=$(git show HEAD:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
+        echo "PR_VERSION: $PR_VERSION"
+        MAIN_VERSION=$(git show origin/main:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
+        echo "MAIN_VERSION: $MAIN_VERSION"
+        if [ "$MAIN_VERSION" = "$PR_VERSION" ]; then
+          echo "Error: PR uses the same version as the main branch"
+          exit 1
+        else
+          echo "Versions are different"
+        fi
