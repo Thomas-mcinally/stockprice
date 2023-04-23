@@ -16,6 +16,6 @@ setup(
         "requests==2.28.2",
         "urllib3==1.26.14; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
     ],
-    version="2.1.1",
+    version="2.1.2",
     entry_points={"console_scripts": ["stockprice = stockprice.main:main"]},
 )
