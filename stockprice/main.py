@@ -4,7 +4,7 @@ from stockprice.calculate_price_movement import calculate_price_movement
 
 
 def main(args: list = sys.argv) -> None:
-    if len(args) == 1 and args[0] == "stockprice":
+    if len(args) == 1:
         print("Please provide at least one stock ticker.")
         print("Example: stockprice tsla,aapl")
         return
