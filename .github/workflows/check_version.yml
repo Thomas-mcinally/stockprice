@@ -14,8 +14,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-
     - name: Get version from main branch
+      run: git fetch origin main
       run: |
         MAIN_VERSION=$(git show origin/main:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
         echo "MAIN_VERSION: $MAIN_VERSION"
