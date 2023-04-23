@@ -13,10 +13,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Update local repository
-      run: git fetch origin main
+      with:
+        fetch-depth: 0
 
-    - name: Check version
+    - name: Check versions
       run: |
         PR_VERSION=$(git show HEAD:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
         echo "PR_VERSION: $PR_VERSION"
