@@ -1,0 +1,29 @@
+name: Check version on PR
+
+on:
+  pull_request:
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get version from main branch
+      run: |
+        MAIN_VERSION=$(git show origin/main:setup.py | grep version | awk '{print $3}' | tr -d "'")
+
+    - name: Get version from pull request branch
+      run: |
+        PR_VERSION=$(git show HEAD:setup.py | grep version | awk '{print $3}' | tr -d "'")
+
+    - name: Check version
+      run: |
+        if [ "$MAIN_VERSION" = "$PR_VERSION" ]; then
+          echo "Error: PR uses the same version as the main branch"
+          exit 1
+        else
+          echo "Versions are different"
+        fi
