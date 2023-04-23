@@ -54,3 +54,14 @@ def test_ticker_not_listed_on_yahoo_finance_multiple_tickers(
         stdout
         == "The ticker symbol XF is not listed on yahoo finance.\nTSLA -- Current price: 174.95 USD -- Daily change: 0.87%, 7-day change: -9.73%, 30-day change: -11.14%\n"
     )
+
+
+def test_stockprice_with_no_tickers(capsys):
+
+    main(["stockprice"])
+
+    stdout = capsys.readouterr().out
+    assert (
+        stdout
+        == "Please provide at least one stock ticker.\nExample: stockprice tsla,aapl\n"
+    )

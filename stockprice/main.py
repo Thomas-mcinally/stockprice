@@ -4,6 +4,10 @@ from stockprice.calculate_price_movement import calculate_price_movement
 
 
 def main(args: list = sys.argv) -> None:
+    if len(args) == 1 and args[0] == "stockprice":
+        print("Please provide at least one stock ticker.")
+        print("Example: stockprice tsla,aapl")
+        return
     raw_inputs = args[1:]
     stock_tickers = []
     for input in raw_inputs:
