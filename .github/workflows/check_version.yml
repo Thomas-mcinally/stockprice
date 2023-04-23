@@ -14,6 +14,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+
+    - name: Print setup.py in main branch
+      run: |
+        echo "Setup.py in main branch:"
+        cat "$(git rev-parse --show-toplevel)/setup.py"
+
+    - name: Print setup.py in pull request branch
+      run: |
+        echo "Setup.py in pull request branch:"
+        cat setup.py
+
     - name: Get version from main branch
       run: |
         MAIN_VERSION=$(git show origin/main:setup.py | grep -Eo "version='[0-9]+\.[0-9]+\.[0-9]+'" | cut -d "'" -f 2)
