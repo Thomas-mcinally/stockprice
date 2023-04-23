@@ -17,7 +17,7 @@ def test_stockprice_with_one_ticker(
         "TSLA", example_yahoo_api_response_30day_tsla_2023_03_13
     )
 
-    main(["stockprice", "tsla"])
+    main(["~/stockprice", "tsla"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -34,7 +34,7 @@ def test_stockprice_with_one_ticker_before_market_opens(
         "TSLA", example_yahoo_api_response_30day_tsla_2023_03_14_before_market_open
     )
 
-    main(["stockprice", "tsla"])
+    main(["~/stockprice", "tsla"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -51,7 +51,7 @@ def test_stockprice_with_one_ticker_crypto(
         "BTC-EUR", example_yahoo_api_response_30day_btc_eur_2023_03_13
     )
 
-    main(["stockprice", "btc-eur"])
+    main(["~/stockprice", "btc-eur"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -71,7 +71,7 @@ def test_stockprice_with_two_tickers(
         "AAPL", example_yahoo_api_response_30day_aapl_2023_03_13
     )
 
-    main(["stockprice", "tsla,aapl"])
+    main(["~/stockprice", "tsla,aapl"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -91,7 +91,7 @@ def test_stockprice_with_whitespace(
         "AAPL", example_yahoo_api_response_30day_aapl_2023_03_13
     )
 
-    main(["stockprice", "tsla,", "aapl"])
+    main(["~/stockprice", "tsla,", "aapl"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -101,7 +101,8 @@ def test_stockprice_with_whitespace(
 
 
 @pytest.mark.parametrize(
-    "input_sys_argv", [["stockprice", "tsla,aapl,"], ["stockprice", "tsla,", "aapl,"]]
+    "input_sys_argv",
+    [["~/stockprice", "tsla,aapl,"], ["~/stockprice", "tsla,", "aapl,"]],
 )
 @freezegun.freeze_time("2023-03-13")
 def test_stockprice_trailing_comma(

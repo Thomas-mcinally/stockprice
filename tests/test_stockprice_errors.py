@@ -20,7 +20,7 @@ def test_ticker_not_listed_on_yahoo_finance_one_ticker(
         404,
     )
 
-    main(["stockprice", "msf"])
+    main(["~/stockprice", "msf"])
 
     stdout = capsys.readouterr().out
     assert stdout == "The ticker symbol MSF is not listed on yahoo finance.\n"
@@ -47,7 +47,7 @@ def test_ticker_not_listed_on_yahoo_finance_multiple_tickers(
         "TSLA", example_yahoo_api_response_30day_tsla_2023_03_13
     )
 
-    main(["stockprice", "xf,tsla"])
+    main(["~/bin/stockprice", "xf,tsla"])
 
     stdout = capsys.readouterr().out
     assert (
@@ -58,7 +58,7 @@ def test_ticker_not_listed_on_yahoo_finance_multiple_tickers(
 
 def test_stockprice_with_no_tickers(capsys):
 
-    main(["stockprice"])
+    main(["~/home/stockprice"])
 
     stdout = capsys.readouterr().out
     assert (
