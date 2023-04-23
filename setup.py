@@ -8,7 +8,7 @@ setup(
     author="Thomas Mcinally",
     url="https://github.com/Thomas-mcinally/stockprice",
     long_description_content_type="text/markdown",
-    python_requires=">=3.8",
+    python_requires=">=3.7",
     install_requires=[
         "certifi==2022.12.7; python_version >= '3.6'",
         "charset-normalizer==3.1.0; python_full_version >= '3.7.0'",
