@@ -10,7 +10,6 @@ def main(args: list = sys.argv) -> None:
         return
     raw_inputs = args[1:]
     stock_tickers = []
-    a = 5
     for input in raw_inputs:
         input = input.upper()
         if input[-1] == ",":
