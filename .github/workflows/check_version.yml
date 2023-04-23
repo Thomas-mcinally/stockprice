@@ -29,9 +29,9 @@ jobs:
 
     - name: Check version
       run: |
-        MAIN_VARIABLE="2.1.1"
-        PR_VARIABLE="2.1.2"
-        if [ "$MAIN_VARIABLE" = "$PR_VARIABLE" ]; then
+        echo "MAIN_VERSION: $MAIN_VERSION"
+        echo "PR_VERSION: $PR_VERSION"
+        if [ "$MAIN_VERSION" = "$PR_VERSION" ]; then
           echo "Error: PR uses the same version as the main branch"
           exit 1
         else
