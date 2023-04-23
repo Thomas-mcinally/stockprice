@@ -20,10 +20,12 @@ jobs:
       run: |
         MAIN_VERSION=$(git show origin/main:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
         echo "MAIN_VERSION: $MAIN_VERSION"
+        declare -p MAIN_VERSION
     - name: Get version from pull request branch
       run: |
         PR_VERSION=$(git show HEAD:setup.py | grep -Eo "version=\"[0-9]+\.[0-9]+\.[0-9]+\"" | cut -d '"' -f 2)
         echo "PR_VERSION: $PR_VERSION"
+        declare -p PR_VERSION
 
     - name: Check version
       run: |
