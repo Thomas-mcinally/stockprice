@@ -9,15 +9,15 @@ def mocked_responses():
 
 
 @pytest.fixture
-def mock_GET_yahoo_v8_finance_chart_api_30day_range(mocked_responses):
-    def _mock_GET_yahoo_v8_finance_chart_api_30day_range(
+def mock_GET_yahoo_v8_finance_chart_api_35day_range(mocked_responses):
+    def _mock_GET_yahoo_v8_finance_chart_api_35day_range(
         ticker, json_response, status=200
     ):
         mocked_responses.get(
             f"https://query2.finance.yahoo.com/v8/finance/chart/{ticker}",
             match=[
                 responses.matchers.query_param_matcher(
-                    {"range": "30d", "interval": "1d"}
+                    {"range": "35d", "interval": "1d"}
                 ),
                 responses.matchers.header_matcher({"User-Agent": "Mozilla/5.0"}),
             ],
@@ -25,15 +25,20 @@ def mock_GET_yahoo_v8_finance_chart_api_30day_range(mocked_responses):
             json=json_response,
         )
 
-    return _mock_GET_yahoo_v8_finance_chart_api_30day_range
+    return _mock_GET_yahoo_v8_finance_chart_api_35day_range
 
 
-example_yahoo_api_response_30day_tsla_2023_03_13 = {
+example_yahoo_api_response_35day_tsla_2023_03_13 = {
     "chart": {
         "result": [
             {
                 "meta": {"currency": "USD", "symbol": "TSLA", "timezone": "UTC"},
                 "timestamp": [
+                    1675089000,
+                    1675089000,
+                    1675089000,
+                    1675089000,
+                    1675089000,
                     1675089000,
                     1675175400,
                     1675261800,
@@ -69,6 +74,11 @@ example_yahoo_api_response_30day_tsla_2023_03_13 = {
                     "quote": [
                         {
                             "close": [
+                                166.66000366210938,
+                                166.66000366210938,
+                                166.66000366210938,
+                                166.66000366210938,
+                                166.66000366210938,
                                 166.66000366210938,
                                 173.22000122070312,
                                 181.41000366210938,
@@ -108,12 +118,17 @@ example_yahoo_api_response_30day_tsla_2023_03_13 = {
     }
 }
 
-example_yahoo_api_response_30day_tsla_2023_03_14_before_market_open = {
+example_yahoo_api_response_35day_tsla_2023_03_14_before_market_open = {
     "chart": {
         "result": [
             {
                 "meta": {"currency": "USD", "symbol": "TSLA", "timezone": "UTC"},
                 "timestamp": [
+                    1675089000,
+                    1675089000,
+                    1675089000,
+                    1675089000,
+                    1675089000,
                     1675089000,
                     1675175400,
                     1675261800,
@@ -149,6 +164,11 @@ example_yahoo_api_response_30day_tsla_2023_03_14_before_market_open = {
                     "quote": [
                         {
                             "close": [
+                                166.66000366210938,
+                                166.66000366210938,
+                                166.66000366210938,
+                                166.66000366210938,
+                                166.66000366210938,
                                 166.66000366210938,
                                 173.22000122070312,
                                 181.41000366210938,
@@ -188,12 +208,17 @@ example_yahoo_api_response_30day_tsla_2023_03_14_before_market_open = {
     }
 }
 
-example_yahoo_api_response_30day_aapl_2023_03_13 = {
+example_yahoo_api_response_35day_aapl_2023_03_13 = {
     "chart": {
         "result": [
             {
                 "meta": {"currency": "USD", "symbol": "AAPL", "timezone": "UTC"},
                 "timestamp": [
+                    1675089000,
+                    1675089000,
+                    1675089000,
+                    1675089000,
+                    1675089000,
                     1675089000,
                     1675175400,
                     1675261800,
@@ -229,6 +254,11 @@ example_yahoo_api_response_30day_aapl_2023_03_13 = {
                     "quote": [
                         {
                             "close": [
+                                143.0,
+                                143.0,
+                                143.0,
+                                143.0,
+                                143.0,
                                 143.0,
                                 144.2899932861328,
                                 145.42999267578125,
@@ -268,12 +298,17 @@ example_yahoo_api_response_30day_aapl_2023_03_13 = {
     }
 }
 
-example_yahoo_api_response_30day_btc_eur_2023_03_13 = {
+example_yahoo_api_response_35day_btc_eur_2023_03_13 = {
     "chart": {
         "result": [
             {
                 "meta": {"currency": "EUR", "symbol": "BTC-EUR", "timezone": "UTC"},
                 "timestamp": [
+                    1675728000,
+                    1675814400,
+                    1675900800,
+                    1675987200,
+                    1676073600,
                     1676160000,
                     1676246400,
                     1676332800,
@@ -309,6 +344,11 @@ example_yahoo_api_response_30day_btc_eur_2023_03_13 = {
                     "quote": [
                         {
                             "close": [
+                                21788.203125,
+                                21788.203125,
+                                21788.203125,
+                                21788.203125,
+                                21788.203125,
                                 21788.203125,
                                 21808.1015625,
                                 22220.8046875,
